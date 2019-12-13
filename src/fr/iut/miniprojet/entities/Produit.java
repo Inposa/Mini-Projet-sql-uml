@@ -1,5 +1,7 @@
 package fr.iut.miniprojet.entities;
 
+//Coucou
+
 public class Produit implements I_Produit{
 	private int quantiteStock;
 	private String nom;
