@@ -16,11 +16,15 @@ public class Catalogue implements I_Catalogue{
 	public boolean addProduit(I_Produit produit) {
 		boolean retour = false;
 		
-		// vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
-		// n'en existe aucun dans la liste.
+		/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
+		 	n'en existe aucun dans la liste.
+		 	On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
 		if(this.getProduitByName(produit.getNom())==null) {
-			this.lesProduit.add(produit);
-			retour = true;
+			if(produit.getPrixUnitaireHT() > 0 && produit.getQuantite() > 0) {
+				this.lesProduit.add(produit);
+				retour = true;
+			}
+			
 		}
 		
 		return retour;
@@ -31,16 +35,23 @@ public class Catalogue implements I_Catalogue{
 	public boolean addProduit(String nom, double prix, int qte) {
 		boolean retour = false;
 
-		// vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
-		// n'en existe aucun dans la liste, on peut donc créer un nouveau produit et l'ajouter.
+		/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
+	 		n'en existe aucun dans la liste.
+	 		On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
 		if(this.getProduitByName(nom)==null) {
-			this.lesProduit.add(new Produit(nom, prix, qte));
-			retour = true;
+			if(prix > 0 && qte > 0) {
+				this.lesProduit.add(new Produit(nom, prix, qte));
+				retour = true;
+			}
+			
 		}
 		
 		return retour;
 	}
 
+	/**
+	 * @return Retourne le nombre de produit qui ont pu être ajoutés au catalogue
+	 */
 	@Override
 	public int addProduits(List<I_Produit> l) {
 		int i = 0;
@@ -169,5 +180,15 @@ public class Catalogue implements I_Catalogue{
 		return produit;
 		
 	}
-
+	
+	@Override
+	public String toString() {
+		String retour = "";
+		for(I_Produit produit : this.lesProduit) {
+			retour += produit.toString() + "\n";
+		}
+		
+		return retour;
+	}
+	
 }
