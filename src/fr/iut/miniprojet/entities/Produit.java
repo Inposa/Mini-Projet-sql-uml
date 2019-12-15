@@ -5,11 +5,11 @@ package fr.iut.miniprojet.entities;
 public class Produit implements I_Produit{
 	private int quantiteStock;
 	private String nom;
-	private float prixUnitaireHT;
+	private double prixUnitaireHT;
 
-	private static float tauxTVA = 0.2f;
+	private static double tauxTVA = 0.2;
 	
-	public Produit(String nom, float prixUnitaireHT, int quantite) {
+	public Produit(String nom, double prixUnitaireHT, int quantite) {
 		this.quantiteStock = quantite;
 		this.nom = nom;
 		this.prixUnitaireHT = prixUnitaireHT;
@@ -19,7 +19,7 @@ public class Produit implements I_Produit{
 	public boolean ajouter(int qteAchetee) {
 		boolean response = false;
 		
-		// On ne peut pas ajouter de quantité négative
+		/* On ne peut pas ajouter de quantité négative */
 		if(qteAchetee > 0) {
 			this.quantiteStock += qteAchetee;
 			response = true;
@@ -32,8 +32,8 @@ public class Produit implements I_Produit{
 	public boolean enlever(int qteVendue) {
 		boolean response = false;
 		
-		// On ne peut pas ajouter de quantité négative ou qui soit supérieure à ce que 
-		// l'on a déjà, il ne faut pas que this.quantiteStock < 0
+		/*	On ne peut pas ajouter de quantité négative ou qui soit supérieure à ce que 
+			l'on a déjà, il ne faut pas que this.quantiteStock < 0 */
 		if(qteVendue > 0 && qteVendue <= this.quantiteStock) {
 			this.quantiteStock -= qteVendue;
 			response = true;
