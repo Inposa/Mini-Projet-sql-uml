@@ -19,7 +19,7 @@ public class Catalogue implements I_Catalogue{
 		boolean retour = false;
 
 		if(produit != null) {
-			String nomVerif = produit.getNom().trim();
+			String nomVerif = produit.getNom().trim().replaceAll("\t", " ");
 
 			/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
 		 	n'en existe aucun dans la liste.
@@ -43,7 +43,7 @@ public class Catalogue implements I_Catalogue{
 	public boolean addProduit(String nom, double prix, int qte) {
 		boolean retour = false;
 
-		String nomVerif = nom.trim();
+		String nomVerif = nom.trim().replaceAll("\t", " ");
 
 		if(nom != null) {
 
@@ -148,23 +148,40 @@ public class Catalogue implements I_Catalogue{
 	
 		List<String> tabRetour = new ArrayList<String>();
 		
+		for(I_Produit produit : this.lesProduit) {
+			tabRetour.add(produit.getNom());
+		}
+		
+		
 		tabRetour.sort(Comparator.naturalOrder());
 		
-		String[] retour = (String[])tabRetour.toArray();
+		String[] retour = this.toStringArray(tabRetour);
 		
-		/*
-		String[] tabRetour = new String[this.lesProduit.size()];
-
-		for(int i = 0;i < this.lesProduit.size();i++) {
-			tabRetour[i] = this.lesProduit.get(i).getNom();
-		}
-*/
-		//tabRetour.sort();
 		
 		return retour;
 	}
 
+	/**
+	 * 
+	 * @param 	liste une liste de chaînes de caractères
+	 * @return 	Retourne un tableau ayant le même contenu que liste,
+	 * 			retourne null si liste = null
+	 */
+	private String[] toStringArray(List<String> liste) {
+		String[] array = null;
+		
+		if(liste != null) {
+			int size = liste.size();
+			array = new String[size];
+			for(int i = 0; i < size; i++) {
+				array[i] = liste.get(i);
+			}
+		}
 
+		return array;
+		
+	}
+	
 	@Override
 	public double getMontantTotalTTC() {
 		double total = 0;
@@ -204,12 +221,15 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public String toString() {
-		String retour = "";
+		String retourString = "";
 		for(I_Produit produit : this.lesProduit) {
-			retour += produit.toString() + "\n";
+			retourString += produit.toString() + "\n";
 		}
-
-		return retour;
+		
+		retourString += "\nMontant total TTC du stock : "+Double.toString(this.getMontantTotalTTC()).replaceAll("\\.", ",")+"\n";
+		
+		
+		return retourString;
 	}
 
 }
