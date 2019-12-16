@@ -63,7 +63,7 @@ public class Produit implements I_Produit{
 
 	@Override
 	public double getPrixStockTTC() {
-		return Math.round((this.getPrixUnitaireTTC() * this.quantiteStock)*100.0)/100.0;
+		return this.getPrixUnitaireTTC() * this.quantiteStock;
 	}
 	
 	@Override
