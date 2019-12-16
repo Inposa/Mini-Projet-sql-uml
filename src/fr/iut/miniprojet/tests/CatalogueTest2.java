@@ -813,7 +813,15 @@ public class CatalogueTest2 {
 
 	@Test
 	public void testClear() {
-		fail("A vous d'écrire le code de ce test");
+		cat.addProduit("Mars", 10, 5);
+		cat.addProduit("Treets", 10, 4);
+		cat.addProduit("Raider", 1, 10);
+		cat.addProduit("Twix", 10.47, 2);
+		
+		cat.clear();
+		assertTrue(cat.getNomProduits().length == 0);
+		
+		//fail("A vous d'écrire le code de ce test");
 	}
 
 	private I_Produit createProduit(String nom, double prixHT, int quantite) {
