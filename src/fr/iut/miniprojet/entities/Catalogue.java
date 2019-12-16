@@ -168,7 +168,6 @@ public class Catalogue implements I_Catalogue{
 		for(I_Produit produit : this.lesProduit) {
 			total += produit.getPrixStockTTC();
 		}
-
 		return Math.round((total)*100.0)/100.0;
 	}
 
