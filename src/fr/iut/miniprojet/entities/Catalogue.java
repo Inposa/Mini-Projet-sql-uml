@@ -15,18 +15,20 @@ public class Catalogue implements I_Catalogue{
 	@Override
 	public boolean addProduit(I_Produit produit) {
 		boolean retour = false;
-		
+
 		/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
 		 	n'en existe aucun dans la liste.
 		 	On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
-		if(this.getProduitByName(produit.getNom())==null) {
-			if(produit.getPrixUnitaireHT() > 0 && produit.getQuantite() > 0) {
-				this.lesProduit.add(produit);
-				retour = true;
+		if(produit != null) {
+
+			if(this.getProduitByName(produit.getNom())==null) {
+				if(produit.getPrixUnitaireHT() > 0 && produit.getQuantite() > 0) {
+					this.lesProduit.add(produit);
+					retour = true;
+				}
 			}
-			
 		}
-		
+
 		return retour;
 		
 	}
@@ -55,12 +57,13 @@ public class Catalogue implements I_Catalogue{
 	@Override
 	public int addProduits(List<I_Produit> l) {
 		int i = 0;
-		for(I_Produit produit : l) {
-			if(this.addProduit(produit)) {
-				i++;
+		if(l != null) {
+			for(I_Produit produit : l) {
+				if(this.addProduit(produit)) {
+					i++;
+				}
 			}
 		}
-		
 		return i;
 	}
 
