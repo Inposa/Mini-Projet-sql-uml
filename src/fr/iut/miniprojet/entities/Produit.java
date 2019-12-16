@@ -10,7 +10,7 @@ public class Produit implements I_Produit{
 	
 	public Produit(String nom, double prixUnitaireHT, int quantite) {
 		this.quantiteStock = quantite;
-		this.nom = nom;
+		this.nom = nom.trim();
 		this.prixUnitaireHT = prixUnitaireHT;
 	}
 

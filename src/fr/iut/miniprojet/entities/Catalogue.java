@@ -16,14 +16,15 @@ public class Catalogue implements I_Catalogue{
 	public boolean addProduit(I_Produit produit) {
 		boolean retour = false;
 
-		
+		if(produit != null) {
+		String nomVerif = produit.getNom().trim();
 		
 		/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
 		 	n'en existe aucun dans la liste.
 		 	On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
-		if(produit != null) {
+		
 			
-			if(this.getProduitByName(produit.getNom()) == null) {
+			if(this.getProduitByName(nomVerif) == null) {
 				
 				if(produit.getPrixUnitaireHT() > 0 && produit.getQuantite() > 0) {
 					this.lesProduit.add(produit);
@@ -39,18 +40,20 @@ public class Catalogue implements I_Catalogue{
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {
 		boolean retour = false;
-		
+
 		String nomVerif = nom.trim();
-		
-		/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
+
+		if(nom != null) {
+
+			/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
 	 		n'en existe aucun dans la liste.
 	 		On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
-		if(this.getProduitByName(nomVerif)==null) {
-			if(prix > 0 && qte > 0) {
-				this.lesProduit.add(new Produit(nomVerif, prix, qte));
-				retour = true;
+			if(this.getProduitByName(nomVerif)==null) {
+				if(prix > 0 && qte > 0) {
+					this.lesProduit.add(new Produit(nomVerif, prix, qte));
+					retour = true;
+				}
 			}
-			
 		}
 		
 		return retour;
