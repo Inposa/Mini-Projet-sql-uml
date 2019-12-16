@@ -1,7 +1,9 @@
 package fr.iut.miniprojet.entities;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
 
 public class Catalogue implements I_Catalogue{
 
@@ -143,12 +145,16 @@ public class Catalogue implements I_Catalogue{
 	 */
 	@Override
 	public String[] getNomProduits() {
+	
+		List<String> tabRetour = new ArrayList<String>();
+		/*
 		String[] tabRetour = new String[this.lesProduit.size()];
 
 		for(int i = 0;i < this.lesProduit.size();i++) {
 			tabRetour[i] = this.lesProduit.get(i).getNom();
 		}
-
+*/
+		//tabRetour.sort();
 		
 		
 		return tabRetour;
