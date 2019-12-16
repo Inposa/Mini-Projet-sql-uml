@@ -26,7 +26,7 @@ public class Catalogue implements I_Catalogue{
 
 			if(this.getProduitByName(nomVerif) == null) {
 
-				if(produit.getPrixUnitaireHT() > 0 && produit.getQuantite() > 0) {
+				if(produit.getPrixUnitaireHT() > 0 && produit.getQuantite() >= 0) {
 					this.lesProduit.add(produit);
 					retour = true;
 				}
