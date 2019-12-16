@@ -149,7 +149,8 @@ public class Catalogue implements I_Catalogue{
 			tabRetour[i] = this.lesProduit.get(i).getNom();
 		}
 
-
+		
+		
 		return tabRetour;
 	}
 
