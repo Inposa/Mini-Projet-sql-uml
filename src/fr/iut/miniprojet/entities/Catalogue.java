@@ -148,8 +148,6 @@ public class Catalogue implements I_Catalogue{
 		for(int i = 0;i < this.lesProduit.size();i++) {
 			tabRetour[i] = this.lesProduit.get(i).getNom();
 		}
-
-		
 		
 		return tabRetour;
 	}
@@ -158,7 +156,6 @@ public class Catalogue implements I_Catalogue{
 	@Override
 	public double getMontantTotalTTC() {
 		double total = 0;
-
 		for(I_Produit produit : this.lesProduit) {
 			total += produit.getPrixStockTTC();
 		}
@@ -170,7 +167,6 @@ public class Catalogue implements I_Catalogue{
 		this.lesProduit.clear();
 
 	}
-
 
 	/**
 	 * 
