@@ -70,6 +70,6 @@ public class Produit implements I_Produit{
 	public String toString() {
 		return this.nom+" | Prix HT : "+Double.toString(prixUnitaireHT)+
 				" | Prix TTC"+Double.toString(this.getPrixUnitaireTTC())+
-					" | Quantité stock : "+this.quantiteStock;
+				" | Quantité stock : "+this.quantiteStock;
 	}
 }
