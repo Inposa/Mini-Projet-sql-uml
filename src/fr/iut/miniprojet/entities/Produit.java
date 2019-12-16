@@ -68,8 +68,6 @@ public class Produit implements I_Produit{
 	
 	@Override
 	public String toString() {
-		return this.nom+" | Prix HT : "+Double.toString(prixUnitaireHT)+
-				" | Prix TTC"+Double.toString(this.getPrixUnitaireTTC())+
-				" | Quantité stock : "+this.quantiteStock;
+		return this.nom+" - prix HT : "+Double.toString(prixUnitaireHT)+"€ - prix TTC : "+Double.toString(this.getPrixUnitaireTTC())+"€ - quantité stock : "+this.quantiteStock;
 	}
 }
