@@ -46,7 +46,7 @@ public class Catalogue implements I_Catalogue{
 	 		n'en existe aucun dans la liste.
 	 		On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
 		if(this.getProduitByName(nomVerif)==null) {
-			if(prix > 0 && qte > 0) {
+			if(prix > 0 && qte >= 0) {
 				this.lesProduit.add(new Produit(nomVerif, prix, qte));
 				retour = true;
 			}
