@@ -147,6 +147,11 @@ public class Catalogue implements I_Catalogue{
 	public String[] getNomProduits() {
 	
 		List<String> tabRetour = new ArrayList<String>();
+		
+		tabRetour.sort(Comparator.naturalOrder());
+		
+		String[] retour = (String[])tabRetour.toArray();
+		
 		/*
 		String[] tabRetour = new String[this.lesProduit.size()];
 
@@ -156,7 +161,7 @@ public class Catalogue implements I_Catalogue{
 */
 		//tabRetour.sort();
 		
-		return tabRetour;
+		return retour;
 	}
 
 
