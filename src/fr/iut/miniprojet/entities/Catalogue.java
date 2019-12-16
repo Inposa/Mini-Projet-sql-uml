@@ -163,7 +163,7 @@ public class Catalogue implements I_Catalogue{
 			total += produit.getPrixStockTTC();
 		}
 
-		return total;
+		return Math.round((total)*100.0)/100.0;
 	}
 
 	@Override
