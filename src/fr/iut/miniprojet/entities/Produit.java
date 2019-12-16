@@ -1,5 +1,6 @@
 package fr.iut.miniprojet.entities;
 
+import java.text.DecimalFormat;
 
 public class Produit implements I_Produit{
 	private int quantiteStock;
@@ -58,7 +59,9 @@ public class Produit implements I_Produit{
 
 	@Override
 	public double getPrixUnitaireTTC() {
-		return this.prixUnitaireHT + this.prixUnitaireHT * Produit.tauxTVA;
+		
+		double prix = this.prixUnitaireHT + this.prixUnitaireHT * Produit.tauxTVA;
+		return prix;
 	}
 
 	@Override
@@ -68,7 +71,10 @@ public class Produit implements I_Produit{
 	
 	@Override
 	public String toString() {
-		return this.nom+" - prix HT : "+Double.toString(prixUnitaireHT)+"€ - prix TTC : "+Double.toString(this.getPrixUnitaireTTC()).replaceAll("\\.", ",")+"€ - quantité stock : "+this.quantiteStock;
+		DecimalFormat format = new DecimalFormat("###########0.00");
+		return this.nom+" - prix HT : "+format.format(prixUnitaireHT).replace('.', ',')+
+				" € - prix TTC : "+format.format(this.getPrixUnitaireTTC()).replace('.', ',')+
+				" € - quantité en stock : "+this.quantiteStock;
 	}
 	
 	

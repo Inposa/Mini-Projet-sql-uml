@@ -1,5 +1,6 @@
 package fr.iut.miniprojet.entities;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -226,7 +227,9 @@ public class Catalogue implements I_Catalogue{
 			retourString += produit.toString() + "\n";
 		}
 		
-		retourString += "\nMontant total TTC du stock : "+Double.toString(this.getMontantTotalTTC()).replaceAll("\\.", ",")+"\n";
+		DecimalFormat format = new DecimalFormat("###########0.00");
+		
+		retourString += "\nMontant total TTC du stock : "+format.format(this.getMontantTotalTTC()).replace('.', ',')+" €";
 		
 		
 		return retourString;
