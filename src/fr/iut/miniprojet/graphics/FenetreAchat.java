@@ -11,11 +11,11 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	private JButton btAchat;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
-	
+
 	private ControllerAchatVente controllerAchatVente;
 
 	public FenetreAchat(String[] lesProduits, ControllerAchatVente controllerAchatVente) {
-		
+
 		this.controllerAchatVente = controllerAchatVente;
 
 		setTitle("Achat");
@@ -41,9 +41,10 @@ public class FenetreAchat extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btAchat) {
-			
+			this.controllerAchatVente.acheterProduit(this.combo.getSelectedItem().toString(), Integer.parseInt(this.txtQuantite.getText()));
+
 		}
-		
+
 		this.dispose();
 	}
 
