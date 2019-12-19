@@ -78,10 +78,8 @@ WindowListener {
 
 		/* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
    		Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
-		String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
-		//this.mainController.getCatalogue().getNomProduits();
-		//
-		
+		//String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
+		String[] tabProduits = this.mainController.getCatalogue().getNomProduits();
 		
 		
 		/* M�me chose pour tabCategories (partie 4) */ 		
@@ -92,12 +90,12 @@ WindowListener {
 		if (e.getSource() == btAfficher)
 			new FenetreAffichage(this.mainController.getControllerStock());
 
-		//Créer de nouveaux produits
+		//Créer de nouveaux produits du catalogue
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit(this.mainController.getControllerCreationSupressionProduit());
 			
-		//Supprimer des produits
+		//Supprimer des produits du catalogue
 		if (e.getSource() == btSupprimerProduit)
 			new FenetreSuppressionProduit(tabProduits, this.mainController.getControllerCreationSupressionProduit());
 

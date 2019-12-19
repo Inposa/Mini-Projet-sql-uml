@@ -11,14 +11,14 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	private JTextField txtPrixHT;
 	private JTextField txtNom;
 	private JTextField txtQte;
-//	private JComboBox<String> combo;
+	//	private JComboBox<String> combo;
 	private JButton btValider;
-	
+
 	private ControllerCreationSupressionProduit controllerCreationSupressionProduit;
 
-//	public FenetreNouveauProduit(String[] lesCategories) {
+	//	public FenetreNouveauProduit(String[] lesCategories) {
 	public FenetreNouveauProduit(ControllerCreationSupressionProduit controllerCreationSupressionProduit) {
-		
+
 		this.controllerCreationSupressionProduit = controllerCreationSupressionProduit;
 
 		setTitle("Creation Produit");
@@ -29,7 +29,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 		JLabel labNom = new JLabel("Nom produit");
 		JLabel labPrixHT = new JLabel("Prix Hors Taxe");
 		JLabel labQte = new JLabel("Quantité en stock");
-//		JLabel labCategorie = new JLabel("Categorie");
+		//		JLabel labCategorie = new JLabel("Categorie");
 		contentPane.add(labNom);
 		txtNom = new JTextField(15);
 		contentPane.add(txtNom);
@@ -40,12 +40,12 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 		txtQte = new JTextField(15);
 		contentPane.add(txtQte);
 
-//		combo = new JComboBox<String>(lesCategories);
-//		combo.setPreferredSize(new Dimension(100, 20));
-//		contentPane.add(labCategorie);
-//		contentPane.add(combo);
+		//		combo = new JComboBox<String>(lesCategories);
+		//		combo.setPreferredSize(new Dimension(100, 20));
+		//		contentPane.add(labCategorie);
+		//		contentPane.add(combo);
 
-		
+
 		btValider = new JButton("Valider");
 		contentPane.add(btValider);
 
@@ -55,13 +55,20 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btValider) {
-			String nom = this.txtNom.getText();
-			double prix = Double.parseDouble(this.txtPrixHT.getText());
-			int quantite = Integer.parseInt(this.txtQte.getText());
-		
-			this.controllerCreationSupressionProduit.creationProduit(nom, prix, quantite);
+			try {
+
+				String nom = this.txtNom.getText();
+				double prix = Double.parseDouble(this.txtPrixHT.getText());
+				int quantite = Integer.parseInt(this.txtQte.getText());
+
+				this.controllerCreationSupressionProduit.creationProduit(nom, prix, quantite);
+			}
+			catch(NumberFormatException ex) {
+				System.err.println("Mauvais format, veuillez rentrer un nombre pour "
+						+ "le prix et la quantité.");
+			}
 		}
-		
+
 		this.dispose();
 	}
 
