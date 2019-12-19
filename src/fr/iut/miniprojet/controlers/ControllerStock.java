@@ -9,4 +9,8 @@ public class ControllerStock {
 	public ControllerStock(Catalogue catalogue) {
 		this.catalogue = catalogue;
 	}
+	
+	public String afficherStock() {
+		return this.catalogue.toString();
+	}
 }

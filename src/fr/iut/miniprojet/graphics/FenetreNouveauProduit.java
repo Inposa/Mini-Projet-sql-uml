@@ -28,7 +28,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 		JLabel labNom = new JLabel("Nom produit");
 		JLabel labPrixHT = new JLabel("Prix Hors Taxe");
-		JLabel labQte = new JLabel("Quantit� en stock");
+		JLabel labQte = new JLabel("Quantité en stock");
 //		JLabel labCategorie = new JLabel("Categorie");
 		contentPane.add(labNom);
 		txtNom = new JTextField(15);
@@ -54,6 +54,14 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btValider) {
+			String nom = this.txtNom.getText();
+			double prix = Double.parseDouble(this.txtPrixHT.getText());
+			int quantite = Integer.parseInt(this.txtQte.getText());
+		
+			this.controllerCreationSupressionProduit.creationProduit(nom, prix, quantite);
+		}
+		
 		this.dispose();
 	}
 

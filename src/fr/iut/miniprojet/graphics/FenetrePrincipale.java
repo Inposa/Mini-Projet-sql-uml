@@ -79,18 +79,25 @@ WindowListener {
 		/* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
    		Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
 		String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
+		//this.mainController.getCatalogue().getNomProduits();
+		//
+		
+		
+		
 		/* M�me chose pour tabCategories (partie 4) */ 		
 		//		String[] tabCategories = new String[] {"Bio", "Luxe" };
 
+		
+		//Afficher tous les produits du catalogue
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("Aujourd'hui nous allons faire de la programmation en 5 couches");
+			new FenetreAffichage(this.mainController.getControllerStock());
 
+		//Créer de nouveaux produits
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit(this.mainController.getControllerCreationSupressionProduit());
 			
-		
-
+		//Supprimer des produits
 		if (e.getSource() == btSupprimerProduit)
 			new FenetreSuppressionProduit(tabProduits, this.mainController.getControllerCreationSupressionProduit());
 
@@ -99,12 +106,15 @@ WindowListener {
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 
+		//Acheter des produits
 		if (e.getSource() == btAchat)
 			new FenetreAchat(tabProduits, this.mainController.getControllerAchatVente());
 
+		//Vendre des produits
 		if (e.getSource() == btVente)
 			new FenetreVente(tabProduits, this.mainController.getControllerAchatVente());
-
+		
+		//Quitter l'application
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir !");
 			System.exit(0);

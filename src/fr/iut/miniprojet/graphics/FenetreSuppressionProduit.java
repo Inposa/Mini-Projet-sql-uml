@@ -35,6 +35,12 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
+		//Si clic sur le bouton de suppression
+		if(e.getSource() == btSupprimer) {
+			//Action à effectuer
+		}
+		
 		this.dispose();
 	}
 

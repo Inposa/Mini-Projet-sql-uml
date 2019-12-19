@@ -19,6 +19,10 @@ public class MainController {
 		this.controllerCreationSupressionProduit = new ControllerCreationSupressionProduit(catalogue);
 		
 	}
+	
+	public Catalogue getCatalogue() {
+		return this.catalogue;
+	}
 
 	public ControllerStock getControllerStock() {
 		return controllerStock;

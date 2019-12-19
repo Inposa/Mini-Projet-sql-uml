@@ -4,12 +4,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import fr.iut.miniprojet.controlers.ControllerStock;
+
 public class FenetreAffichage extends JFrame implements ActionListener {
 
 	private JButton btOK;
 	
-	public FenetreAffichage(String texte) {
+	private ControllerStock controllerStock;
+	
+	public FenetreAffichage(ControllerStock controllerStock) {
+		
+		this.controllerStock = controllerStock;
 
+		
 		setTitle("Affichage");
 		setBounds(500, 500, 450, 250);
 		JPanel panHaut = new JPanel();
@@ -17,7 +24,7 @@ public class FenetreAffichage extends JFrame implements ActionListener {
 		panHaut.setLayout(new BorderLayout());
 		panBas.setLayout(new FlowLayout());
 		
-		JTextArea jtaSortie = new JTextArea(texte,10,5);
+		JTextArea jtaSortie = new JTextArea(controllerStock.afficherStock(), 10, 5);
 		btOK = new JButton("Quitter");
 		
 		
