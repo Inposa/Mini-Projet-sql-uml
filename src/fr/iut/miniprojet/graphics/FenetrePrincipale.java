@@ -4,25 +4,28 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-
+import fr.iut.miniprojet.controlers.MainController;;
 
 public class FenetrePrincipale extends JFrame implements ActionListener,
-		WindowListener {
+WindowListener {
 
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
 	private JButton btSupprimerProduit;
-//	private JButton btNouvelleCategorie;
-//	private JButton btSupprimerCategorie;
+	//	private JButton btNouvelleCategorie;
+	//	private JButton btSupprimerCategorie;
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
 
-	
+
+	private MainController mainController;
+
 	public FenetrePrincipale() {
-		
+
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
+		
 		JPanel panAffichage = new JPanel();
 		JPanel panNouveauSupprimerProduit = new JPanel();
 //		JPanel panNouveauSupprimerCategorie = new JPanel();
@@ -30,7 +33,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		JPanel panQuitter = new JPanel();
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FlowLayout());
-		btAfficher = new JButton("Quantit�s en stock");
+		
+		btAfficher = new JButton("Quantités en stock");
 		btNouveauProduit = new JButton("Nouveau Produit");
 		btSupprimerProduit = new JButton("Supprimer Produit");
 //		btNouvelleCategorie = new JButton("Nouvelle Categorie");
@@ -61,34 +65,42 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		btAchat.addActionListener(this);
 		btVente.addActionListener(this);
 		btQuitter.addActionListener(this);
-		
+
 		addWindowListener(this);
 		setVisible(true);
+
+		this.mainController = new MainController();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
-/* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
+		/* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
    Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
 		String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
-/* M�me chose pour tabCategories (partie 4) */ 		
-//		String[] tabCategories = new String[] {"Bio", "Luxe" };
-		
+		/* M�me chose pour tabCategories (partie 4) */ 		
+		//		String[] tabCategories = new String[] {"Bio", "Luxe" };
+
 		if (e.getSource() == btAfficher)
 			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
+
 		if (e.getSource() == btSupprimerProduit)
 			new FenetreSuppressionProduit(tabProduits);
+
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
+
 		if (e.getSource() == btAchat)
 			new FenetreAchat(tabProduits);
+
 		if (e.getSource() == btVente)
 			new FenetreVente(tabProduits);
+
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
 			System.exit(0);
@@ -107,8 +119,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
 
-	
-	
+
+
 	public static void main(String[] args) {
 		new FenetrePrincipale();
 	}
