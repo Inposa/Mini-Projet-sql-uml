@@ -1,5 +1,6 @@
 package fr.iut.miniprojet.controlers;
 
+//import fr.iut.miniprojet.dao.DAO;
 import fr.iut.miniprojet.entities.Catalogue;
 
 public class MainController {
@@ -11,8 +12,12 @@ public class MainController {
 	private ControllerAchatVente controllerAchatVente;
 	private ControllerCreationSupressionProduit controllerCreationSupressionProduit;
 	
+	//private DAO dao;
+	
 	public MainController() {
 		this.catalogue = new Catalogue();
+		
+		//this.dao = new DAO();
 		
 		this.controllerAchatVente = new ControllerAchatVente(catalogue);
 		this.controllerStock = new ControllerStock(catalogue);
