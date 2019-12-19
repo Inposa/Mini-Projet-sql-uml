@@ -15,8 +15,8 @@ public class MainController {
 		this.catalogue = new Catalogue();
 		
 		this.controllerAchatVente = new ControllerAchatVente(catalogue);
-		this.controllerStock = new ControllerStock();
-		this.controllerCreationSupressionProduit = new ControllerCreationSupressionProduit();
+		this.controllerStock = new ControllerStock(catalogue);
+		this.controllerCreationSupressionProduit = new ControllerCreationSupressionProduit(catalogue);
 		
 	}
 

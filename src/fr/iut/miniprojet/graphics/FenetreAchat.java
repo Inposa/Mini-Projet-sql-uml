@@ -4,13 +4,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import fr.iut.miniprojet.controlers.ControllerAchatVente;
+
 public class FenetreAchat extends JFrame implements ActionListener {
 
 	private JButton btAchat;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
+	
+	private ControllerAchatVente controllerAchatVente;
 
-	public FenetreAchat(String[] lesProduits) {
+	public FenetreAchat(String[] lesProduits, ControllerAchatVente controllerAchatVente) {
+		
+		this.controllerAchatVente = controllerAchatVente;
 
 		setTitle("Achat");
 		setBounds(500, 500, 200, 125);

@@ -2,7 +2,7 @@ package fr.iut.miniprojet.controlers;
 
 import fr.iut.miniprojet.entities.Catalogue;
 
-public class ControllerAchatVente extends MainController {
+public class ControllerAchatVente {
 	
 	private Catalogue catalogue;
 	

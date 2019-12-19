@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import fr.iut.miniprojet.controlers.ControllerAchatVente;
 import fr.iut.miniprojet.controlers.MainController;;
 
 public class FenetrePrincipale extends JFrame implements ActionListener,
@@ -22,6 +23,8 @@ WindowListener {
 	private MainController mainController;
 
 	public FenetrePrincipale() {
+
+		this.mainController = new MainController();
 
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
@@ -69,26 +72,27 @@ WindowListener {
 		addWindowListener(this);
 		setVisible(true);
 
-		this.mainController = new MainController();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
 		/* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
-   Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
+   		Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
 		String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
 		/* M�me chose pour tabCategories (partie 4) */ 		
 		//		String[] tabCategories = new String[] {"Bio", "Luxe" };
 
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+			new FenetreAffichage("Aujourd'hui nous allons faire de la programmation en 5 couches");
 
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
-			new FenetreNouveauProduit();
+			new FenetreNouveauProduit(this.mainController.getControllerCreationSupressionProduit());
+			
+		
 
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(tabProduits);
+			new FenetreSuppressionProduit(tabProduits, this.mainController.getControllerCreationSupressionProduit());
 
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
@@ -96,19 +100,19 @@ WindowListener {
 //			new FenetreSuppressionCategorie(tabCategories);
 
 		if (e.getSource() == btAchat)
-			new FenetreAchat(tabProduits);
+			new FenetreAchat(tabProduits, this.mainController.getControllerAchatVente());
 
 		if (e.getSource() == btVente)
-			new FenetreVente(tabProduits);
+			new FenetreVente(tabProduits, this.mainController.getControllerAchatVente());
 
 		if (e.getSource() == btQuitter){
-			System.out.println("Au revoir");
+			System.out.println("Au revoir !");
 			System.exit(0);
 		}	
 	}
 
 	public void windowClosing(WindowEvent arg0) {
-		System.out.println("Au revoir");
+		System.out.println("Au revoir !");
 		System.exit(0);
 	}
 
@@ -118,7 +122,6 @@ WindowListener {
 	public void windowDeiconified(WindowEvent arg0) {}
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
-
 
 
 	public static void main(String[] args) {

@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import fr.iut.miniprojet.controlers.ControllerCreationSupressionProduit;
+
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 	private JTextField txtPrixHT;
@@ -11,9 +13,13 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	private JTextField txtQte;
 //	private JComboBox<String> combo;
 	private JButton btValider;
+	
+	private ControllerCreationSupressionProduit controllerCreationSupressionProduit;
 
 //	public FenetreNouveauProduit(String[] lesCategories) {
-	public FenetreNouveauProduit() {	
+	public FenetreNouveauProduit(ControllerCreationSupressionProduit controllerCreationSupressionProduit) {
+		
+		this.controllerCreationSupressionProduit = controllerCreationSupressionProduit;
 
 		setTitle("Creation Produit");
 		setBounds(500, 500, 200, 250);

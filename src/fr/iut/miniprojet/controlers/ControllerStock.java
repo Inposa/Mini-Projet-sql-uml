@@ -1,5 +1,12 @@
 package fr.iut.miniprojet.controlers;
 
-public class ControllerStock {
+import fr.iut.miniprojet.entities.Catalogue;
 
+public class ControllerStock {
+	
+	private Catalogue catalogue;
+	
+	public ControllerStock(Catalogue catalogue) {
+		this.catalogue = catalogue;
+	}
 }

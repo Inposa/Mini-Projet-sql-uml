@@ -1,5 +1,12 @@
 package fr.iut.miniprojet.controlers;
 
-public class ControllerCreationSupressionProduit {
+import fr.iut.miniprojet.entities.Catalogue;
 
+public class ControllerCreationSupressionProduit {
+	
+	private Catalogue catalogue;
+	
+	public ControllerCreationSupressionProduit(Catalogue catalogue) {
+		this.catalogue = catalogue;
+	}
 }

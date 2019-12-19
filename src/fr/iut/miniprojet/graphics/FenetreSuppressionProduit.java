@@ -4,12 +4,18 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import fr.iut.miniprojet.controlers.ControllerCreationSupressionProduit;
+
 public class FenetreSuppressionProduit extends JFrame implements ActionListener {
 
 	private JButton btSupprimer;
 	private JComboBox<String> combo;
 	
-	public FenetreSuppressionProduit(String lesProduits[]) {
+	private ControllerCreationSupressionProduit controllerCreationSupressionProduit;
+	
+	public FenetreSuppressionProduit(String lesProduits[], ControllerCreationSupressionProduit controllerCreationSupressionProduit) {
+		
+		this.controllerCreationSupressionProduit = controllerCreationSupressionProduit;
 		
 		setTitle("Suppression produit");
 		setBounds(500, 500, 200, 105);
