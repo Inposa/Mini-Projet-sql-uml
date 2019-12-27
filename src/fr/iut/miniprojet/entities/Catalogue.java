@@ -19,6 +19,10 @@ public class Catalogue implements I_Catalogue{
 		this.lesProduit = new ArrayList<I_Produit>();
 		
 		this.daoProduits = new DAOGestionProduits();
+		
+		List<I_Produit> liste = this.daoProduits.getProduits();
+		this.addProduits(liste);
+		
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package fr.iut.miniprojet.dao;
 
+import java.awt.List;
 import java.sql.*;
+import java.util.ArrayList;
 
 import fr.iut.miniprojet.entities.I_Produit;
 import fr.iut.miniprojet.entities.Produit;
@@ -27,9 +29,7 @@ public class DAOGestionProduits {
 		try {
 			// Instanciation de la connexion 
 			// connexion depuis le réseau IUT : jdbc:oracle:thin:@gloin:1521:iut
-			// 
 			this.cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut","pechh","SuperMario64");
-
 		}
 		catch(SQLException e) {
 			System.err.println(e.getMessage());
@@ -45,7 +45,7 @@ public class DAOGestionProduits {
 			statement.setDouble(2, produit.getPrixUnitaireHT());
 			statement.setInt(3, produit.getQuantite());
 
-			statement.executeQuery();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -62,7 +62,7 @@ public class DAOGestionProduits {
 			statement.setDouble(2, prixProduit);
 			statement.setInt(3, qteProduit);
 
-			statement.executeQuery();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -75,7 +75,7 @@ public class DAOGestionProduits {
 			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits WHERE nomProduit = ?");
 
 			statement.setString(1, nomProduit);
-			statement.executeQuery();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -87,7 +87,7 @@ public class DAOGestionProduits {
 			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits WHERE nomProduit = ?");
 
 			statement.setString(1, produit.getNom());
-			statement.executeQuery();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -103,11 +103,39 @@ public class DAOGestionProduits {
 
 			statement.setInt(1, produit.getQuantite());
 			statement.setString(2, produit.getNom());
-			statement.executeQuery();
+			statement.executeUpdate();
+			
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());		
 		}
 	}
 
+	public ArrayList<I_Produit> getProduits(){
+		ArrayList<I_Produit> liste = new ArrayList<I_Produit>();
+		
+		try {
+			PreparedStatement statement = this.cn.prepareStatement("SELECT * FROM Produits");
+			ResultSet res = statement.executeQuery();
+			
+			// Tant qu'il y a un suivant dans le resultset, on l'ajoute à la liste que l'on
+			// renvoiera.
+			while(res.next()) {
+				String nom = res.getString(1);
+				Double prix = res.getDouble(2);
+				int qte = res.getInt(3);
+				
+				liste.add(new Produit(nom, prix, qte));
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());		
+		}
+		
+		return liste;
+		
+	}
+	
 }
