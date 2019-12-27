@@ -3,16 +3,16 @@ package fr.iut.miniprojet.entities;
 import java.text.DecimalFormat;
 
 public class Produit implements I_Produit{
-	private int quantiteStock;
 	private String nom;
 	private double prixUnitaireHT;
+	private int quantiteStock;
 
 	private static double tauxTVA = 0.2;
 	
 	public Produit(String nom, double prixUnitaireHT, int quantite) {
-		this.quantiteStock = quantite;
 		this.nom = nom.trim();
 		this.prixUnitaireHT = prixUnitaireHT;
+		this.quantiteStock = quantite;
 	}
 
 	@Override

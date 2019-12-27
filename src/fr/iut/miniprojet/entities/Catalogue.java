@@ -5,14 +5,20 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import fr.iut.miniprojet.dao.DAOGestionProduits;
+
 
 public class Catalogue implements I_Catalogue{
 
 	private List<I_Produit> lesProduit;
+	
+	private DAOGestionProduits daoProduits;
+	
 
 	public Catalogue() {
 		this.lesProduit = new ArrayList<I_Produit>();
-
+		this.daoProduits = new DAOGestionProduits();
+		
 	}
 
 	@Override
@@ -25,8 +31,6 @@ public class Catalogue implements I_Catalogue{
 			/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
 		 	n'en existe aucun dans la liste.
 		 	On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
-
-
 			if(this.getProduitByName(nomVerif) == null) {
 
 				if(produit.getPrixUnitaireHT() > 0 && produit.getQuantite() >= 0) {
