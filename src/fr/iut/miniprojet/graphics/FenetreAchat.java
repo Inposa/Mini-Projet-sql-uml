@@ -41,8 +41,9 @@ public class FenetreAchat extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btAchat) {
-			this.controllerAchatVente.acheterProduit(this.combo.getSelectedItem().toString(), Integer.parseInt(this.txtQuantite.getText()));
-
+			if(this.combo.getSelectedItem()!=null) {
+				this.controllerAchatVente.acheterProduit(this.combo.getSelectedItem().toString(), Integer.parseInt(this.txtQuantite.getText()));
+			}
 		}
 
 		this.dispose();

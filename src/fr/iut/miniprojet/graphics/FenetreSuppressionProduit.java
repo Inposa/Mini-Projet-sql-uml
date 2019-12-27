@@ -38,7 +38,10 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 		
 		//Si clic sur le bouton de suppression
 		if(e.getSource() == btSupprimer) {
-			this.controllerCreationSupressionProduit.suppressionProduit(this.combo.getSelectedItem().toString());
+			if(this.combo.getSelectedItem()!=null) {
+				this.controllerCreationSupressionProduit.suppressionProduit(this.combo.getSelectedItem().toString());
+
+			}
 		}
 		
 		this.dispose();

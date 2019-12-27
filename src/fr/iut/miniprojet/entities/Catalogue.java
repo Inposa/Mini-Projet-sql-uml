@@ -17,8 +17,8 @@ public class Catalogue implements I_Catalogue{
 
 	public Catalogue() {
 		this.lesProduit = new ArrayList<I_Produit>();
-		this.daoProduits = new DAOGestionProduits();
 		
+		this.daoProduits = new DAOGestionProduits();
 	}
 
 	@Override
@@ -59,6 +59,7 @@ public class Catalogue implements I_Catalogue{
 			if(this.getProduitByName(nomVerif)==null) {
 				if(prix > 0 && qte >= 0) {
 					this.lesProduit.add(new Produit(nomVerif, prix, qte));
+					this.daoProduits.insertionProduit(nomVerif, prix, qte);
 					retour = true;
 				}
 
@@ -96,6 +97,7 @@ public class Catalogue implements I_Catalogue{
 
 		if(produit != null) {
 			this.lesProduit.remove(produit);
+			this.daoProduits.deleteProduit(nom);
 			retour = true;
 		}
 

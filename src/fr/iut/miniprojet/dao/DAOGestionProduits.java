@@ -7,9 +7,9 @@ import fr.iut.miniprojet.entities.Produit;
 
 public class DAOGestionProduits {
 	private Connection cn;
-	private PreparedStatement pst;
+	/*private PreparedStatement pst;
 
-	private ResultSet res;
+	private ResultSet res;*/
 
 
 	/**
@@ -25,8 +25,10 @@ public class DAOGestionProduits {
 		} 
 
 		try {
-			//Instanciation de la connexion 
-			this.cn = DriverManager.getConnection("jdbc:oracle:thin:@gloin:1521:iut","pechh","SuperMario64");
+			// Instanciation de la connexion 
+			// connexion depuis le réseau IUT : jdbc:oracle:thin:@gloin:1521:iut
+			// 
+			this.cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut","pechh","SuperMario64");
 
 		}
 		catch(SQLException e) {
@@ -36,7 +38,7 @@ public class DAOGestionProduits {
 
 	public void insertionProduit(Produit produit) {
 		try {
-			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrProduit) "
+			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
 
 			statement.setString(1, produit.getNom());
@@ -53,7 +55,7 @@ public class DAOGestionProduits {
 
 	public void insertionProduit(String nomProduit, double prixProduit, int qteProduit) {
 		try {
-			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrProduit) "
+			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
 
 			statement.setString(1, nomProduit);
@@ -73,17 +75,19 @@ public class DAOGestionProduits {
 			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits WHERE nomProduit = ?");
 
 			statement.setString(1, nomProduit);
+			statement.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
 	}
 
-	public void deleteProduit(Produit produit) {
+	public void deleteProduit(I_Produit produit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits WHERE nomProduit = ?");
 
 			statement.setString(1, produit.getNom());
+			statement.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -99,6 +103,7 @@ public class DAOGestionProduits {
 
 			statement.setInt(1, produit.getQuantite());
 			statement.setString(2, produit.getNom());
+			statement.executeQuery();
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());		
