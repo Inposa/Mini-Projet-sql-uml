@@ -123,6 +123,7 @@ public class Catalogue implements I_Catalogue{
 
 		if(produit != null) {
 			if(produit.ajouter(qteAchetee)) {
+				this.daoProduits.updateQuantiteProduit(produit.getNom(),produit.getQuantite());
 				retour = true;
 			}
 		}
@@ -144,6 +145,7 @@ public class Catalogue implements I_Catalogue{
 
 		if(produit != null) {
 			if (produit.enlever(qteVendue)) {
+				this.daoProduits.updateQuantiteProduit(produit.getNom(),produit.getQuantite());
 				retour = true;
 			}
 		}

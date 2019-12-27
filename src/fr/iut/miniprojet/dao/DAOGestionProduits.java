@@ -110,6 +110,20 @@ public class DAOGestionProduits {
 			System.err.println(e.getMessage());		
 		}
 	}
+	
+	public void updateQuantiteProduit(String nomProduit, int quantite) {
+		try {
+			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits SET nbrStock = ? WHERE nomProduit = ?");
+
+			statement.setInt(1, quantite);
+			statement.setString(2, nomProduit);
+			statement.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());		
+		}		
+	}
 
 	public ArrayList<I_Produit> getProduits(){
 		ArrayList<I_Produit> liste = new ArrayList<I_Produit>();
@@ -127,7 +141,6 @@ public class DAOGestionProduits {
 				
 				liste.add(new Produit(nom, prix, qte));
 			}
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
