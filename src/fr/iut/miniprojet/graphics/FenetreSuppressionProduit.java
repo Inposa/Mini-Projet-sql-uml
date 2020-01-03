@@ -8,6 +8,7 @@ import fr.iut.miniprojet.controlers.ControllerCreationSupressionProduit;
 
 public class FenetreSuppressionProduit extends JFrame implements ActionListener {
 
+	private static final long serialVersionUID = 1L;
 	private JButton btSupprimer;
 	private JComboBox<String> combo;
 	

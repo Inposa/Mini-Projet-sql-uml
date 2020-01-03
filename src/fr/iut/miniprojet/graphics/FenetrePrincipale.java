@@ -4,12 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import fr.iut.miniprojet.controlers.ControllerAchatVente;
 import fr.iut.miniprojet.controlers.MainController;;
 
 public class FenetrePrincipale extends JFrame implements ActionListener,
 WindowListener {
 
+	private static final long serialVersionUID = 1L;
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
 	private JButton btSupprimerProduit;
@@ -40,16 +40,21 @@ WindowListener {
 		btAfficher = new JButton("Quantités en stock");
 		btNouveauProduit = new JButton("Nouveau Produit");
 		btSupprimerProduit = new JButton("Supprimer Produit");
+		
 //		btNouvelleCategorie = new JButton("Nouvelle Categorie");
 //		btSupprimerCategorie = new JButton("Supprimer Categorie");
+		
 		btAchat = new JButton("Achat Produits");
 		btVente = new JButton("Vente Produits");
 		btQuitter = new JButton("Quitter");
+		
 		panAffichage.add(btAfficher);
 		panNouveauSupprimerProduit.add(btNouveauProduit); 
 		panNouveauSupprimerProduit.add(btSupprimerProduit);
+		
 //		panNouveauSupprimerCategorie.add(btNouvelleCategorie); 
 //		panNouveauSupprimerCategorie.add(btSupprimerCategorie);
+		
 		panAchatVente.add(btAchat); 
 		panAchatVente.add(btVente);  
 		panQuitter.add(btQuitter);

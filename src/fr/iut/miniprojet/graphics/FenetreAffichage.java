@@ -8,14 +8,11 @@ import fr.iut.miniprojet.controlers.ControllerStock;
 
 public class FenetreAffichage extends JFrame implements ActionListener {
 
+	private static final long serialVersionUID = 1L;
+
 	private JButton btOK;
 	
-	private ControllerStock controllerStock;
-	
 	public FenetreAffichage(ControllerStock controllerStock) {
-		
-		this.controllerStock = controllerStock;
-
 		
 		setTitle("Affichage");
 		setBounds(500, 500, 450, 250);
