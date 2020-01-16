@@ -15,10 +15,8 @@ public class MainController {
 	//private DAO dao;
 	
 	public MainController() {
-		this.catalogue = new Catalogue();
-		
-		//this.dao = new DAO();
-		
+		this.catalogue = Catalogue.getInstance();
+			
 		this.controllerAchatVente = new ControllerAchatVente(catalogue);
 		this.controllerStock = new ControllerStock(catalogue);
 		this.controllerCreationSupressionProduit = new ControllerCreationSupressionProduit(catalogue);

@@ -6,17 +6,13 @@ import java.util.ArrayList;
 import fr.iut.miniprojet.entities.I_Produit;
 import fr.iut.miniprojet.entities.Produit;
 
-public class DAOGestionProduits {
+public class DAOProduits implements DAO {
 	private Connection cn;
-	/*private PreparedStatement pst;
-
-	private ResultSet res;*/
-
 
 	/**
 	 * Connexion à la base de données 
 	 */
-	public DAOGestionProduits() {
+	public DAOProduits() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} 
@@ -34,8 +30,9 @@ public class DAOGestionProduits {
 			System.err.println(e.getMessage());
 		}
 	}
-
-	public void insertionProduit(Produit produit) {
+	
+	@Override
+	public void insertionProduit(I_Produit produit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
@@ -52,6 +49,7 @@ public class DAOGestionProduits {
 
 	}
 
+	@Override
 	public void insertionProduit(String nomProduit, double prixProduit, int qteProduit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
@@ -69,6 +67,7 @@ public class DAOGestionProduits {
 
 	}
 
+	@Override
 	public void deleteProduit(String nomProduit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits WHERE nomProduit = ?");
@@ -81,6 +80,7 @@ public class DAOGestionProduits {
 		}
 	}
 
+	@Override
 	public void deleteProduit(I_Produit produit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits WHERE nomProduit = ?");
@@ -96,7 +96,8 @@ public class DAOGestionProduits {
 	/**
 	 * Update la quantité d'un produit lorsqu'il est modifié
 	 */
-	public void updateQuantiteProduit(Produit produit) {
+	@Override
+	public void updateQuantiteProduit(I_Produit produit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits SET nbrStock = ? WHERE nomProduit = ?");
 
@@ -110,6 +111,7 @@ public class DAOGestionProduits {
 		}
 	}
 	
+	@Override
 	public void updateQuantiteProduit(String nomProduit, int quantite) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits SET nbrStock = ? WHERE nomProduit = ?");
@@ -124,6 +126,7 @@ public class DAOGestionProduits {
 		}		
 	}
 
+	@Override
 	public ArrayList<I_Produit> getProduits(){
 		ArrayList<I_Produit> liste = new ArrayList<I_Produit>();
 		
@@ -149,5 +152,6 @@ public class DAOGestionProduits {
 		return liste;
 		
 	}
+
 	
 }

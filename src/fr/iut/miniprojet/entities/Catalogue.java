@@ -5,20 +5,30 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import fr.iut.miniprojet.dao.DAOGestionProduits;
+import fr.iut.miniprojet.dao.DAOProduits;
 
 
+// Singleton
 public class Catalogue implements I_Catalogue{
 
 	private List<I_Produit> lesProduit;
 	
-	private DAOGestionProduits daoProduits;
+	private DAOProduits daoProduits;
+	
+	private static Catalogue instance = null;
 	
 
-	public Catalogue() {
+	static public Catalogue getInstance() {
+		if (Catalogue.instance == null) {
+			instance = new Catalogue();
+		}
+		return Catalogue.instance;
+	}
+	
+	private Catalogue() {
 		this.lesProduit = new ArrayList<I_Produit>();
 		
-		this.daoProduits = new DAOGestionProduits();
+		this.daoProduits = new DAOProduits();
 		
 		List<I_Produit> liste = this.daoProduits.getProduits();
 		this.addProduits(liste);
