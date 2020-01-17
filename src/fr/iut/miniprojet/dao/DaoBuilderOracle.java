@@ -7,7 +7,7 @@ import java.util.List;
 
 import fr.iut.miniprojet.entities.I_Produit;
 
-public class DaoBuilderOracle extends DaoBuilder{
+public class DaoBuilderOracle implements DaoBuilder {
 	private Connection cn;
 
 	
@@ -32,6 +32,18 @@ public class DaoBuilderOracle extends DaoBuilder{
 	
 	public I_DAOProduit getDAOProduit() {
 		return new DAOProduits();
+	}
+
+	@Override
+	public DaoBuilder getDaoProduit() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DaoBuilder getDaoCatalogue() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

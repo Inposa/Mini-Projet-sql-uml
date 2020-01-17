@@ -6,10 +6,13 @@ package fr.iut.miniprojet.dao;
  * Rediriger vers un DAO en particulier en fonction de la configuration 
  * souhaitée (Oracle ou xml) 
  */
-public abstract class DaoBuilder {
+public interface DaoBuilder {
 	
-	private static String CONFIG = "oracle";
-		
+	public DaoBuilder getDaoProduit();
+	public DaoBuilder getDaoCatalogue();
+	
+	
+	/*private static String CONFIG = "oracle";
 	
 	public static DaoBuilder getDaoBuilder() {
 		//Lecture de la configuration et action en fonction de celle-ci
@@ -30,7 +33,7 @@ public abstract class DaoBuilder {
 		}
 		return builder;
 		
-	}
+	}*/
 	
 
 	
