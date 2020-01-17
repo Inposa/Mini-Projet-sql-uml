@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import fr.iut.miniprojet.entities.I_Produit;
 import fr.iut.miniprojet.entities.Produit;
 
-public class DAOProduits implements DAO {
+public class DAOProduits implements I_DAOProduit {
 	private Connection cn;
 
 	/**

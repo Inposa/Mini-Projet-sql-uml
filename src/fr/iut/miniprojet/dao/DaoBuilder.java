@@ -1,20 +1,37 @@
 package fr.iut.miniprojet.dao;
 
+
+/**
+ * 
+ * Rediriger vers un DAO en particulier en fonction de la configuration 
+ * souhaitée (Oracle ou xml) 
+ */
 public abstract class DaoBuilder {
 	
-	private static DAO instance = null;
+	private static String CONFIG = "oracle";
+		
 	
-	private static String config = "oracle";
-	
-	
-	
-	
-	/*public DAO getInstance() {
-		if(DaoBuilder.instance == null) {
-			DaoBuilder.instance = new DaoBuilder(DaoBuilder.config);
+	public static DaoBuilder getDaoBuilder() {
+		//Lecture de la configuration et action en fonction de celle-ci
+		DaoBuilder builder = null;
+		
+		switch (DaoBuilder.CONFIG) {
+		case "oracle":
+			builder = new DaoBuilderOracle();
+			break;
+			
+		case "xml":
+			builder = new DaoBuilderXML();
+			break;
+			
+		default:
+			builder = new DaoBuilderOracle();
+			break;
 		}
+		return builder;
+		
 	}
-	*/
 	
+
 	
 }

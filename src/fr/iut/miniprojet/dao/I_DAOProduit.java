@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.iut.miniprojet.entities.I_Produit;
 
-public interface DAO {
+public interface I_DAOProduit {
 	public void insertionProduit(I_Produit produit);
 	public void insertionProduit(String nomProduit, double prixProduit, int qteProduit);
 	public void deleteProduit(String nomProduit);
