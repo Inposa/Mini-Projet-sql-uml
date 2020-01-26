@@ -12,7 +12,6 @@ public class MainController {
 	private ControllerAchatVente controllerAchatVente;
 	private ControllerCreationSupressionProduit controllerCreationSupressionProduit;
 	
-	//private DAO dao;
 	
 	public MainController() {
 		this.catalogue = Catalogue.getInstance();

@@ -26,7 +26,7 @@ WindowListener {
 
 		this.mainController = new MainController();
 
-		setTitle("exercice Produits");
+		setTitle("Exercice Produits");
 		setBounds(500, 500, 320, 250);
 		
 		JPanel panAffichage = new JPanel();
