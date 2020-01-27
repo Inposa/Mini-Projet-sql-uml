@@ -11,6 +11,7 @@ import java.util.List;
 import fr.iut.miniprojet.entities.I_Produit;
 import fr.iut.miniprojet.entities.Produit;
 
+//Singleton
 public class DAOProduitOracle implements DAOProduit {
 	
 	private Connection cn;

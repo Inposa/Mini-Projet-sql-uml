@@ -1,19 +1,23 @@
 package fr.iut.miniprojet.entities;
 
 import java.text.DecimalFormat;
+
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import fr.iut.miniprojet.dao.DAOProduits;
+//import fr.iut.miniprojet.dao.DAOProduits;
+
+import fr.iut.miniprojet.dao.produits.*;
+
 
 
 // Singleton
 public class Catalogue implements I_Catalogue{
 
 	private List<I_Produit> lesProduit;
-	
-	private DAOProduits daoProduits;
+	private DAOProduit daoProduits;
 	
 	private static Catalogue instance = null;
 	
@@ -28,7 +32,7 @@ public class Catalogue implements I_Catalogue{
 	private Catalogue() {
 		this.lesProduit = new ArrayList<I_Produit>();
 		
-		this.daoProduits = new DAOProduits();
+		this.daoProduits = DAOProduitBuilder.getInstance().createDAOProduit("oracle");
 		
 		List<I_Produit> liste = this.daoProduits.getProduits();
 		this.addProduits(liste);
