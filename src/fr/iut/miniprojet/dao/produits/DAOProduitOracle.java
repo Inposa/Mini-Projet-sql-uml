@@ -28,23 +28,19 @@ public class DAOProduitOracle implements DAOProduit {
 	private DAOProduitOracle() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
+			// connexion depuis le réseau IUT : jdbc:oracle:thin:@gloin:1521:iut
+			this.cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut","pechh","SuperMario64");
 		} 
 		catch (ClassNotFoundException e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
 		} 
-
-		try {
-			// connexion depuis le réseau IUT : jdbc:oracle:thin:@gloin:1521:iut
-			this.cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut","pechh","SuperMario64");
-		}
 		catch(SQLException e) {
 			System.err.println(e.getMessage());
-		}
+		}	
 	}
 	
 	@Override
-	public void insertionProduit(I_Produit produit) {
+	public boolean insertionProduit(I_Produit produit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
@@ -54,15 +50,17 @@ public class DAOProduitOracle implements DAOProduit {
 			statement.setInt(3, produit.getQuantite());
 
 			statement.executeUpdate();
+			
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			System.err.println(e.getMessage());
+			return false;
 		}
 
 	}
 
 	@Override
-	public void insertionProduit(String nomProduit, double prixProduit, int qteProduit) {
+	public boolean insertionProduit(String nomProduit, double prixProduit, int qteProduit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
@@ -72,36 +70,39 @@ public class DAOProduitOracle implements DAOProduit {
 			statement.setInt(3, qteProduit);
 
 			statement.executeUpdate();
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			System.err.println(e.getMessage());
+			return false;
 		}
 
 	}
 
 	@Override
-	public void deleteProduit(String nomProduit) {
+	public boolean deleteProduit(String nomProduit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits WHERE nomProduit = ?");
 
 			statement.setString(1, nomProduit);
 			statement.executeUpdate();
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			System.err.println(e.getMessage());
+			return false;
 		}
 	}
 
 	@Override
-	public void deleteProduit(I_Produit produit) {
+	public boolean deleteProduit(I_Produit produit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits WHERE nomProduit = ?");
 
 			statement.setString(1, produit.getNom());
 			statement.executeUpdate();
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			System.err.println(e.getMessage());
+			return false;
 		}
 	}
 
@@ -109,35 +110,59 @@ public class DAOProduitOracle implements DAOProduit {
 	 * Update la quantité d'un produit lorsqu'il est modifié
 	 */
 	@Override
-	public void updateQuantiteProduit(I_Produit produit) {
+	public boolean maj(I_Produit produit) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits SET nbrStock = ? WHERE nomProduit = ?");
 
 			statement.setInt(1, produit.getQuantite());
 			statement.setString(2, produit.getNom());
 			statement.executeUpdate();
+			return true;
 			
 		}catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());		
+			System.err.println(e.getMessage());
+			return false;
 		}
 	}
 	
 	@Override
-	public void updateQuantiteProduit(String nomProduit, int quantite) {
+	public boolean maj(String nomProduit, int quantite) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits SET nbrStock = ? WHERE nomProduit = ?");
 
 			statement.setInt(1, quantite);
 			statement.setString(2, nomProduit);
 			statement.executeUpdate();
+			return true;
 			
 		}catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());		
+			System.err.println(e.getMessage());
+			return false;
 		}		
 	}
+	
+	/**
+	 * Retourne un produit à partir de son nom
+	 */
+	@Override
+	public I_Produit lire(String nomProduit) {
+		try {
+			PreparedStatement statement = this.cn.prepareStatement("SELECT * FROM Produits WHERE nomProduit = ?");
+			
+			statement.setString(1, nomProduit);
+			ResultSet res = statement.executeQuery();
+			
+			return new Produit(res.getString(1), res.getDouble(2), res.getInt(3));
+			
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			return null;
+		}
+	}
 
+	/**
+	 * Retourne tous les produits présents dans la base
+	 */
 	@Override
 	public List<I_Produit> getProduits(){
 		List<I_Produit> liste = new ArrayList<I_Produit>();
@@ -155,13 +180,27 @@ public class DAOProduitOracle implements DAOProduit {
 				
 				liste.add(new Produit(nom, prix, qte));
 			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
 			System.err.println(e.getMessage());		
 		}
 		
 		return liste;
 		
 	}
+
+	@Override
+	public boolean clear() {
+		PreparedStatement statement;
+		try {
+			statement = this.cn.prepareStatement("DELETE FROM Produits");
+			ResultSet res = statement.executeQuery();
+			return true;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());		
+			return false;
+		}
+		
+	}
+
+
 }

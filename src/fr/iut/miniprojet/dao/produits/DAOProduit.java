@@ -5,11 +5,17 @@ import java.util.List;
 import fr.iut.miniprojet.entities.I_Produit;
 
 public interface DAOProduit {
-	public void insertionProduit(I_Produit produit);
-	public void insertionProduit(String nomProduit, double prixProduit, int qteProduit);
-	public void deleteProduit(String nomProduit);
-	public void deleteProduit(I_Produit produit);
-	public void updateQuantiteProduit(I_Produit produit);
-	public void updateQuantiteProduit(String nomProduit, int quantite);
+	public boolean insertionProduit(I_Produit produit);
+	public boolean insertionProduit(String nomProduit, double prixProduit, int qteProduit);
+	
+	public boolean deleteProduit(String nomProduit);
+	public boolean deleteProduit(I_Produit produit);
+	
+	public boolean maj(I_Produit p);
+	public boolean maj(String nomProduit, int qte);
+	
+	public I_Produit lire(String nomProduit);
 	public List<I_Produit> getProduits();
+	
+	public boolean clear();
 }

@@ -14,17 +14,18 @@ import fr.iut.miniprojet.entities.I_Produit;
 import fr.iut.miniprojet.entities.Produit;
 
 
-public class CatalogueTest2 {
+public class CatalogueTest {
 
 	I_Catalogue cat;
 
 	@Before
 	public void setUp() {
 		cat = Catalogue.getInstance();
-//		Si votre Catalogue est un Singleton, il faut changer la ligne précédente puis vider le Catalogue avec la méthode clear() comme indiqué à la ligne suivante
+		// Si votre Catalogue est un Singleton, il faut changer la ligne précédente puis vider le Catalogue 
+		// avec la méthode clear() comme indiqué à la ligne suivante
 		cat.clear();
 	}
-	
+
 	@Test
 	public void testConstructeurCatalogue() {
 		assertNotNull("créer catalogue", cat);
@@ -817,11 +818,9 @@ public class CatalogueTest2 {
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.47, 2);
-		
+
 		cat.clear();
 		assertTrue(cat.getNomProduits().length == 0);
-		
-		//fail("A vous d'écrire le code de ce test");
 	}
 
 	private I_Produit createProduit(String nom, double prixHT, int quantite) {

@@ -11,16 +11,17 @@ import java.util.List;
 
 import fr.iut.miniprojet.dao.produits.*;
 
-
-
 // Singleton
 public class Catalogue implements I_Catalogue{
 
+	// Liste contenant les objets du catalogue
 	private List<I_Produit> lesProduit;
+
+	//Pour pouvoir choisir entre BDD Oracle ou xml 
+	private static String DAO_METHOD = "oracle";
 	private DAOProduit daoProduits;
-	
+
 	private static Catalogue instance = null;
-	
 
 	static public Catalogue getInstance() {
 		if (Catalogue.instance == null) {
@@ -28,15 +29,16 @@ public class Catalogue implements I_Catalogue{
 		}
 		return Catalogue.instance;
 	}
-	
+
 	private Catalogue() {
 		this.lesProduit = new ArrayList<I_Produit>();
-		
-		this.daoProduits = DAOProduitBuilder.getInstance().createDAOProduit("oracle");
-		
+
+		//Création d'une nouvelle instance de dao en fonction de la méthode souhaitée (oracle ou xml)
+		this.daoProduits = DAOProduitBuilder.getInstance().createDAOProduit(Catalogue.DAO_METHOD);
+
 		List<I_Produit> liste = this.daoProduits.getProduits();
 		this.addProduits(liste);
-		
+
 	}
 
 	@Override
@@ -50,7 +52,6 @@ public class Catalogue implements I_Catalogue{
 		 	n'en existe aucun dans la liste.
 		 	On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
 			if(this.getProduitByName(nomVerif) == null) {
-
 				if(produit.getPrixUnitaireHT() > 0 && produit.getQuantite() >= 0) {
 					this.lesProduit.add(produit);
 					retour = true;
@@ -59,32 +60,27 @@ public class Catalogue implements I_Catalogue{
 		}
 
 		return retour;
-
 	}
 
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {
-		boolean retour = false;
-
+		boolean booleanValue = false;
 		String nomVerif = nom.trim().replaceAll("\t", " ");
 
 		if(nom != null) {
-
 			/*	Vérification si un produit du même nom existe déjà dans la liste, la fonction getProduitByName renvoie null s'il
 	 		n'en existe aucun dans la liste.
 	 		On vérifie également que sa quantité et son prix sont des valeur légales (supérieures à 0) */
-
 			if(this.getProduitByName(nomVerif)==null) {
 				if(prix > 0 && qte >= 0) {
 					this.lesProduit.add(new Produit(nomVerif, prix, qte));
 					this.daoProduits.insertionProduit(nomVerif, prix, qte);
-					retour = true;
+					booleanValue = true;
 				}
-
 			}
 		}
 
-		return retour;
+		return booleanValue;
 	}
 
 	/**
@@ -110,18 +106,17 @@ public class Catalogue implements I_Catalogue{
 	 */
 	@Override
 	public boolean removeProduit(String nom) {
-		boolean retour = false;
+		boolean booleanValue = false;
 		I_Produit produit = this.getProduitByName(nom);
 
 		if(produit != null) {
 			this.lesProduit.remove(produit);
 			this.daoProduits.deleteProduit(nom);
-			retour = true;
+			booleanValue = true;
 		}
 
-		return retour;
+		return booleanValue;
 	}
-
 
 	/**
 	 * @param 	nomProduit le nom du produit que l'on souhaite acheter
@@ -132,17 +127,16 @@ public class Catalogue implements I_Catalogue{
 	 */
 	@Override
 	public boolean acheterStock(String nomProduit, int qteAchetee) {
-		boolean retour = false;
+		boolean booleanValue = false;
 		I_Produit produit = this.getProduitByName(nomProduit);
 
 		if(produit != null) {
 			if(produit.ajouter(qteAchetee)) {
-				this.daoProduits.updateQuantiteProduit(produit.getNom(),produit.getQuantite());
-				retour = true;
+				this.daoProduits.maj(produit.getNom(),produit.getQuantite());
+				booleanValue = true;
 			}
 		}
-
-		return retour;
+		return booleanValue;
 	}
 
 	/**
@@ -154,17 +148,16 @@ public class Catalogue implements I_Catalogue{
 	 */
 	@Override
 	public boolean vendreStock(String nomProduit, int qteVendue) {
-		boolean retour = false;
+		boolean booleanValue = false;
 		I_Produit produit = this.getProduitByName(nomProduit);
 
 		if(produit != null) {
 			if (produit.enlever(qteVendue)) {
-				this.daoProduits.updateQuantiteProduit(produit.getNom(),produit.getQuantite());
-				retour = true;
+				this.daoProduits.maj(produit.getNom(),produit.getQuantite());
+				booleanValue = true;
 			}
 		}
-
-		return retour;
+		return booleanValue;
 	}
 
 	/**
@@ -172,31 +165,24 @@ public class Catalogue implements I_Catalogue{
 	 */
 	@Override
 	public String[] getNomProduits() {
-	
 		List<String> tabRetour = new ArrayList<String>();
-		
+
 		for(I_Produit produit : this.lesProduit) {
 			tabRetour.add(produit.getNom());
 		}
-		
-		
 		tabRetour.sort(Comparator.naturalOrder());
-		
-		String[] retour = this.toStringArray(tabRetour);
-		
-		
-		return retour;
+		return this.toStringArray(tabRetour);
 	}
 
 	/**
 	 * 
-	 * @param 	liste une liste de chaînes de caractères
-	 * @return 	Retourne un tableau ayant le même contenu que liste,
+	 * @param 	liste, une liste de chaînes de caractères
+	 * @return 	Retourne un tableau ayant le même contenu que la liste liste,
 	 * 			retourne null si liste = null
 	 */
 	private String[] toStringArray(List<String> liste) {
 		String[] array = null;
-		
+
 		if(liste != null) {
 			int size = liste.size();
 			array = new String[size];
@@ -204,11 +190,10 @@ public class Catalogue implements I_Catalogue{
 				array[i] = liste.get(i);
 			}
 		}
-
 		return array;
-		
+
 	}
-	
+
 	@Override
 	public double getMontantTotalTTC() {
 		double total = 0;
@@ -220,8 +205,8 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public void clear() {
+		this.daoProduits.clear();
 		this.lesProduit.clear();
-
 	}
 
 	/**
@@ -241,9 +226,7 @@ public class Catalogue implements I_Catalogue{
 
 			i++;
 		}
-
 		return produit;
-
 	}
 
 	@Override
@@ -252,13 +235,10 @@ public class Catalogue implements I_Catalogue{
 		for(I_Produit produit : this.lesProduit) {
 			retourString += produit.toString() + "\n";
 		}
-		
 		DecimalFormat format = new DecimalFormat("###########0.00");
-		
-		retourString += "\nMontant total TTC du stock : "+format.format(this.getMontantTotalTTC()).replace('.', ',')+" €";
-		
-		
+
+		retourString += "\nMontant total TTC du stock : "
+				+format.format(this.getMontantTotalTTC()).replace('.', ',')+" €";
 		return retourString;
 	}
-
 }

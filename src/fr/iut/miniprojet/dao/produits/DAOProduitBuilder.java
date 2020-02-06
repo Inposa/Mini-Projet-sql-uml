@@ -1,6 +1,6 @@
 package fr.iut.miniprojet.dao.produits;
 
-import fr.iut.miniprojet.dao.DaoBuilder;
+//import fr.iut.miniprojet.dao.DaoBuilder;
 
 //Singleton
 public class DAOProduitBuilder {
