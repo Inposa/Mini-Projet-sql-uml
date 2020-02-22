@@ -18,7 +18,7 @@ public class Catalogue implements I_Catalogue{
 	private List<I_Produit> lesProduit;
 
 	//Pour pouvoir choisir entre BDD Oracle ou xml 
-	private static String DAO_METHOD = "oracle";
+	private static String DAO_METHOD = "xml";
 	private DAOProduit daoProduits;
 
 	private static Catalogue instance = null;

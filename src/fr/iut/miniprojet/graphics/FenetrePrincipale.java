@@ -19,11 +19,9 @@ WindowListener {
 	private JButton btVente;
 	private JButton btQuitter;
 
-
 	private MainController mainController;
 
 	public FenetrePrincipale() {
-
 		this.mainController = new MainController();
 
 		setTitle("Exercice Produits");
@@ -90,7 +88,6 @@ WindowListener {
 		/* M�me chose pour tabCategories (partie 4) */ 		
 		//		String[] tabCategories = new String[] {"Bio", "Luxe" };
 
-		
 		//Afficher tous les produits du catalogue
 		if (e.getSource() == btAfficher)
 			new FenetreAffichage(this.mainController.getControllerStock());

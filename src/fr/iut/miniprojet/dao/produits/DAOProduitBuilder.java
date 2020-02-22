@@ -1,7 +1,5 @@
 package fr.iut.miniprojet.dao.produits;
 
-//import fr.iut.miniprojet.dao.DaoBuilder;
-
 //Singleton
 public class DAOProduitBuilder {
 	
@@ -26,7 +24,12 @@ public class DAOProduitBuilder {
 			case "xml":
 				DAOProduitBuilder.daoInstance = DAOProduitXml.getInstance();
 				break;
+			default:
+				System.out.println("Configuration inconnue, utilisation de la basse de données Oracle à la place.");
+				DAOProduitBuilder.daoInstance = DAOProduitOracle.getInstance();
+				break;
 			}
+			
 		}
 		return DAOProduitBuilder.daoInstance;
 	}

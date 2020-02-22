@@ -1,6 +1,7 @@
 package fr.iut.miniprojet.dao.produits;
 
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,24 +13,25 @@ import fr.iut.miniprojet.entities.I_Produit;
 import fr.iut.miniprojet.entities.Produit;
 
 public class DAOProduitXml implements DAOProduit {
-	private String uri = "/home/licence/pechh/xml_files/Produits.xml";
+	private String uri = "./db/Produits.xml";
 	private Document doc;
-	
+
 	public static DAOProduitXml instance = null;
-	
-	
+
+
 	public static DAOProduitXml getInstance() {
 		if(DAOProduitXml.instance == null) {
 			DAOProduitXml.instance = new DAOProduitXml();
 		}
 		return DAOProduitXml.instance;
 	}
-	
+
 	private DAOProduitXml() {
 		SAXBuilder sdoc = new SAXBuilder();
 		try {
 			doc = sdoc.build(uri);
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("erreur construction arbre JDOM");
 		}
 	}
@@ -47,6 +49,7 @@ public class DAOProduitXml implements DAOProduit {
 			root.addContent(prod);
 			return sauvegarde();
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("erreur creer produit");
 			return false;
 		}
@@ -65,6 +68,7 @@ public class DAOProduitXml implements DAOProduit {
 			root.addContent(prod);
 			return sauvegarde();
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("erreur creer produit");
 			return false;
 		}
@@ -81,6 +85,7 @@ public class DAOProduitXml implements DAOProduit {
 			} else
 				return false;
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("erreur supprimer produit");
 			return false;
 		}
@@ -97,6 +102,7 @@ public class DAOProduitXml implements DAOProduit {
 			} else
 				return false;
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("Erreur supprimer produit");
 			return false;
 		}
@@ -112,6 +118,7 @@ public class DAOProduitXml implements DAOProduit {
 			}
 			return false;
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("erreur maj produit");
 			return false;
 		}
@@ -127,6 +134,7 @@ public class DAOProduitXml implements DAOProduit {
 			}
 			return false;
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("erreur maj produit");
 			return false;
 		}
@@ -162,12 +170,13 @@ public class DAOProduitXml implements DAOProduit {
 				l.add(new Produit(nomP, prix, qte));
 			}
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("erreur lireTous tous les produits");
 		}
 		return l;
 	}
-	
-	
+
+
 	/**
 	 * Sauvegarde de nouvelles données dans le fichier xml
 	 */
@@ -178,6 +187,7 @@ public class DAOProduitXml implements DAOProduit {
 			out.output(doc, new PrintWriter(uri));
 			return true;
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			System.out.println("erreur sauvegarde dans fichier XML");
 			return false;
 		}
@@ -200,7 +210,16 @@ public class DAOProduitXml implements DAOProduit {
 
 	@Override
 	public boolean clear() {
-		// TODO Auto-generated method stub
-		return false;
+		List<I_Produit> produits = this.getProduits();
+		try{
+			for(I_Produit p : produits) {
+				this.deleteProduit(p.getNom());
+			}
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
+			return false;
+		}
+
+		return true;
 	}
 }
