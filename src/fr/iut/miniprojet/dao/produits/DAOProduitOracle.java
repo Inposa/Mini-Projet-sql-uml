@@ -15,7 +15,6 @@ import fr.iut.miniprojet.entities.Produit;
 public class DAOProduitOracle implements DAOProduit {
 	
 	private Connection cn;
-	
 	public static DAOProduit instance = null;
 	
 	public static DAOProduit getInstance() {
@@ -56,7 +55,6 @@ public class DAOProduitOracle implements DAOProduit {
 			System.err.println(e.getMessage());
 			return false;
 		}
-
 	}
 
 	@Override
@@ -75,7 +73,6 @@ public class DAOProduitOracle implements DAOProduit {
 			System.err.println(e.getMessage());
 			return false;
 		}
-
 	}
 
 	@Override
@@ -181,7 +178,8 @@ public class DAOProduitOracle implements DAOProduit {
 				liste.add(new Produit(nom, prix, qte));
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());		
+			System.err.println(e.getMessage());
+			return null;
 		}
 		
 		return liste;
@@ -201,6 +199,5 @@ public class DAOProduitOracle implements DAOProduit {
 		}
 		
 	}
-
 
 }

@@ -38,7 +38,6 @@ public class Catalogue implements I_Catalogue{
 
 		List<I_Produit> liste = this.daoProduits.getProduits();
 		this.addProduits(liste);
-
 	}
 
 	@Override

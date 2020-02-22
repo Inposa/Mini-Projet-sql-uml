@@ -1,7 +1,6 @@
 package fr.iut.miniprojet.dao.produits;
 
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

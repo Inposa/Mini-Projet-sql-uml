@@ -77,6 +77,4 @@ public class Produit implements I_Produit{
 				" € - quantité en stock : "+this.quantiteStock;
 	}
 	
-	
-	
 }
