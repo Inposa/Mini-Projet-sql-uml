@@ -7,7 +7,7 @@ CREATE TABLE Produits(
 	);
 
 
-CREATE OR REPLACE PROCEDURE ajouterProduit(p_nomProduit IN Produits.nomProduit%TYPE, 
+CREATE OR REPLACE PROCEDURE insererProduit(p_nomProduit IN Produits.nomProduit%TYPE, 
 				p_prixProduit IN Produits.prixProduit%TYPE, 
 				p_nbrStock IN Produits.nbrStock%TYPE) IS
 	

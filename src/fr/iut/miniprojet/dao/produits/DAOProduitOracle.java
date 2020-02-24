@@ -28,7 +28,7 @@ public class DAOProduitOracle implements DAOProduit {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			// connexion depuis le réseau IUT : jdbc:oracle:thin:@gloin:1521:iut
-			this.cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut","pechh","SuperMario64");
+			this.cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut","pechh","OracleHippo");
 		} 
 		catch (ClassNotFoundException e) {
 			System.err.println(e.getMessage());
@@ -41,6 +41,8 @@ public class DAOProduitOracle implements DAOProduit {
 	@Override
 	public boolean insertionProduit(I_Produit produit) {
 		try {
+			//CallableStatement cs = ("{call insererProduit(?,?,?)}");
+			
 			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
 
@@ -60,6 +62,7 @@ public class DAOProduitOracle implements DAOProduit {
 	@Override
 	public boolean insertionProduit(String nomProduit, double prixProduit, int qteProduit) {
 		try {
+			
 			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
 
