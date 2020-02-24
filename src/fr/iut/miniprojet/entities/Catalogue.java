@@ -131,7 +131,7 @@ public class Catalogue implements I_Catalogue{
 
 		if(produit != null) {
 			if(produit.ajouter(qteAchetee)) {
-				this.daoProduits.maj(produit.getNom(),produit.getQuantite());
+				this.daoProduits.maj(produit);
 				booleanValue = true;
 			}
 		}
@@ -152,7 +152,7 @@ public class Catalogue implements I_Catalogue{
 
 		if(produit != null) {
 			if (produit.enlever(qteVendue)) {
-				this.daoProduits.maj(produit.getNom(),produit.getQuantite());
+				this.daoProduits.maj(produit);
 				booleanValue = true;
 			}
 		}

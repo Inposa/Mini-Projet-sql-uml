@@ -122,7 +122,7 @@ public class DAOProduitOracle implements DAOProduit {
 		}
 	}
 	
-	@Override
+/*	@Override
 	public boolean maj(String nomProduit, int quantite) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits SET nbrStock = ? WHERE nomProduit = ?");
@@ -136,7 +136,7 @@ public class DAOProduitOracle implements DAOProduit {
 			System.err.println(e.getMessage());
 			return false;
 		}		
-	}
+	}*/
 	
 	/**
 	 * Retourne un produit à partir de son nom

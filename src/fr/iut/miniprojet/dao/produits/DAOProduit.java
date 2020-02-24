@@ -12,7 +12,7 @@ public interface DAOProduit {
 	public boolean deleteProduit(I_Produit produit);
 	
 	public boolean maj(I_Produit p);
-	public boolean maj(String nomProduit, int qte);
+//	public boolean maj(String nomProduit, int qte);
 	
 	public I_Produit lire(String nomProduit);
 	public List<I_Produit> getProduits();
