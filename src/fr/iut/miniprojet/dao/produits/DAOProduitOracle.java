@@ -15,32 +15,16 @@ import fr.iut.miniprojet.entities.Produit;
 public class DAOProduitOracle implements DAOProduit {
 	
 	private Connection cn;
-	public static DAOProduit instance = null;
 	
-	public static DAOProduit getInstance() {
-		if(DAOProduitOracle.instance == null) {
-			DAOProduitOracle.instance = new DAOProduitOracle();
-		}
-		return DAOProduitOracle.instance;
-	}
-	
-	private DAOProduitOracle() {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			// connexion depuis le réseau IUT : jdbc:oracle:thin:@gloin:1521:iut
-			this.cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut","pechh","SuperMario64");
-		} 
-		catch (ClassNotFoundException e) {
-			System.err.println(e.getMessage());
-		} 
-		catch(SQLException e) {
-			System.err.println(e.getMessage());
-		}	
+	public DAOProduitOracle(Connection cn) {
+		this.cn = cn;	
 	}
 	
 	@Override
 	public boolean insertionProduit(I_Produit produit) {
 		try {
+			//CallableStatement cs = ("{call insererProduit(?,?,?)}");
+			
 			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
 
@@ -60,6 +44,7 @@ public class DAOProduitOracle implements DAOProduit {
 	@Override
 	public boolean insertionProduit(String nomProduit, double prixProduit, int qteProduit) {
 		try {
+			
 			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits(nomProduit, prixProduit, nbrStock) "
 					+ "VALUES(?,?,?)");
 
@@ -122,7 +107,7 @@ public class DAOProduitOracle implements DAOProduit {
 		}
 	}
 	
-	@Override
+/*	@Override
 	public boolean maj(String nomProduit, int quantite) {
 		try {
 			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits SET nbrStock = ? WHERE nomProduit = ?");
@@ -136,7 +121,7 @@ public class DAOProduitOracle implements DAOProduit {
 			System.err.println(e.getMessage());
 			return false;
 		}		
-	}
+	}*/
 	
 	/**
 	 * Retourne un produit à partir de son nom

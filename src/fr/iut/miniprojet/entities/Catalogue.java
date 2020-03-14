@@ -7,35 +7,47 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import fr.iut.miniprojet.dao.DaoOracleFactory;
+import fr.iut.miniprojet.dao.DaoXMLFactory;
+
 //import fr.iut.miniprojet.dao.DAOProduits;
 
 import fr.iut.miniprojet.dao.produits.*;
 
-// Singleton
 public class Catalogue implements I_Catalogue{
-
-	// Liste contenant les objets du catalogue
+	
+	public static String DaoMethod = "oracle";
+	
+	// Liste contenant le contenu du catalogue
 	private List<I_Produit> lesProduit;
 
-	//Pour pouvoir choisir entre BDD Oracle ou xml 
-	private static String DAO_METHOD = "xml";
 	private DAOProduit daoProduits;
 
-	private static Catalogue instance = null;
-
-	static public Catalogue getInstance() {
-		if (Catalogue.instance == null) {
-			instance = new Catalogue();
-		}
-		return Catalogue.instance;
-	}
-
-	private Catalogue() {
+	private String nom;
+	
+	public Catalogue(String nom) {
+		this.nom = nom;
+		
 		this.lesProduit = new ArrayList<I_Produit>();
-
-		//Création d'une nouvelle instance de dao en fonction de la méthode souhaitée (oracle ou xml)
-		this.daoProduits = DAOProduitBuilder.getInstance().createDAOProduit(Catalogue.DAO_METHOD);
-
+		
+		
+		switch (DaoMethod) {
+		case "oracle":
+			this.daoProduits = DaoOracleFactory.getInstance().createDaoProduit();
+			break;
+		case "xml":
+			this.daoProduits = DaoXMLFactory.getInstance().createDaoProduit();
+		
+		default:
+			this.daoProduits = DaoOracleFactory.getInstance().createDaoProduit();
+			break;
+		}
+		//TODO Récupération liaison avec bdd
+		/*//Création d'une nouvelle instance de dao en fonction de la méthode souhaitée (oracle ou xml)
+		this.daoProduits = DAOProduitBuilder.getInstance().createDAOProduit();
+*/		
+		
+		
 		List<I_Produit> liste = this.daoProduits.getProduits();
 		this.addProduits(liste);
 	}
@@ -131,7 +143,7 @@ public class Catalogue implements I_Catalogue{
 
 		if(produit != null) {
 			if(produit.ajouter(qteAchetee)) {
-				this.daoProduits.maj(produit.getNom(),produit.getQuantite());
+				this.daoProduits.maj(produit);
 				booleanValue = true;
 			}
 		}
@@ -152,7 +164,7 @@ public class Catalogue implements I_Catalogue{
 
 		if(produit != null) {
 			if (produit.enlever(qteVendue)) {
-				this.daoProduits.maj(produit.getNom(),produit.getQuantite());
+				this.daoProduits.maj(produit);
 				booleanValue = true;
 			}
 		}
@@ -201,7 +213,7 @@ public class Catalogue implements I_Catalogue{
 		}
 		return Math.round((total)*100.0)/100.0;
 	}
-
+	
 	@Override
 	public void clear() {
 		this.daoProduits.clear();
@@ -226,8 +238,8 @@ public class Catalogue implements I_Catalogue{
 			i++;
 		}
 		return produit;
-	}
-
+	}	
+	
 	@Override
 	public String toString() {
 		String retourString = "";

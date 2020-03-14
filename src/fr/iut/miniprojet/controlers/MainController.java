@@ -5,6 +5,7 @@ import fr.iut.miniprojet.entities.Catalogue;
 
 public class MainController {
 	// Catalogue qui sera le même pour les trois autres controlers
+	//TODO Gérer différents catalogues
 	private Catalogue catalogue;
 	
 	// Controllers :
@@ -14,7 +15,6 @@ public class MainController {
 	
 	
 	public MainController() {
-		this.catalogue = Catalogue.getInstance();
 			
 		this.controllerAchatVente = new ControllerAchatVente(catalogue);
 		this.controllerStock = new ControllerStock(catalogue);
