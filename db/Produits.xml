@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listeProduits>
-
-<produit nom="Mars"><prixHT>10.0</prixHT><quantite>5</quantite></produit><produit nom="Treets"><prixHT>10.0</prixHT><quantite>4</quantite></produit><produit nom="Raider"><prixHT>1.0</prixHT><quantite>10</quantite></produit><produit nom="Twix"><prixHT>12.66</prixHT><quantite>1</quantite></produit></listeProduits>
+<produit>
+	<prixHT = "10"/>
+	<quantite = "4"/>
+	<nomCatalogue = "a"/>
+</produit>
+</listeProduits>

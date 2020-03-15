@@ -1,4 +1,4 @@
-package fr.iut.miniprojet;
+package fr.iut.miniprojet.controlers;
 
 import fr.iut.miniprojet.entities.I_Catalogue;
 

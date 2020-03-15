@@ -14,9 +14,13 @@ import fr.iut.miniprojet.entities.Produit;
 
 public class ProduitDAO_XML {
 	private String uri = "./db/Produits.xml";
+	private String nomCatalogue;
+	
 	private Document doc;
 
-	public ProduitDAO_XML() {
+	public ProduitDAO_XML(String nomCatalogue) {
+		this.nomCatalogue = nomCatalogue;
+		
 		SAXBuilder sdoc = new SAXBuilder();
 		try {
 			doc = sdoc.build(uri);
@@ -34,6 +38,9 @@ public class ProduitDAO_XML {
 			prod.addContent(prix.setText(String.valueOf(p.getPrixUnitaireHT())));
 			Element qte = new Element("quantite");
 			prod.addContent(qte.setText(String.valueOf(p.getQuantite())));
+			Element catalogue = new Element("nomCatalogue");
+			prod.addContent(catalogue.setText(String.valueOf(this.nomCatalogue)));
+			
 			root.addContent(prod);
 			return sauvegarde();
 		} catch (Exception e) {
@@ -73,10 +80,12 @@ public class ProduitDAO_XML {
 
 	public I_Produit lire(String nom) {
 		Element e = chercheProduit(nom);
-		if (e != null)
+		if (e != null && e.getAttributeValue("nomCatalogue") == this.nomCatalogue) {
 			return new Produit(e.getAttributeValue("nom"), Double.parseDouble(e.getChildText("prixHT")), Integer.parseInt(e.getChildText("quantite")));
-		else
+		}
+		else {
 			return null;
+		}
 	}
 
 	public List<I_Produit> lireTous() {
@@ -85,12 +94,14 @@ public class ProduitDAO_XML {
 		try {
 			Element root = doc.getRootElement();
 			List<Element> lProd = root.getChildren("produit");
-
+			
 			for (Element prod : lProd) {
-				String nomP = prod.getAttributeValue("nom");
-				Double prix = Double.parseDouble(prod.getChild("prixHT").getText());
-				int qte = Integer.parseInt(prod.getChild("quantite").getText());
-				l.add(new Produit(nomP, prix, qte));
+				if(prod.getAttributeValue("nomCatalogue") == this.nomCatalogue) {
+					String nomP = prod.getAttributeValue("nom");
+					Double prix = Double.parseDouble(prod.getChild("prixHT").getText());
+					int qte = Integer.parseInt(prod.getChild("quantite").getText());
+					l.add(new Produit(nomP, prix, qte));
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("erreur lireTous tous les produits");
@@ -114,7 +125,7 @@ public class ProduitDAO_XML {
 		Element root = doc.getRootElement();
 		List<Element> lProd = root.getChildren("produit");
 		int i = 0;
-		while (i < lProd.size() && !lProd.get(i).getAttributeValue("nom").equals(nom))
+		while (i < lProd.size() && !lProd.get(i).getAttributeValue("nom").equals(nom) && !lProd.get(i).getAttributeValue("nomCatalogue").equals(this.nomCatalogue))
 			i++;
 		if (i < lProd.size())
 			return lProd.get(i);

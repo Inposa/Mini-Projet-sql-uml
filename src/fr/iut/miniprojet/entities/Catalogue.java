@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import fr.iut.miniprojet.Config;
 import fr.iut.miniprojet.dao.DaoOracleFactory;
 import fr.iut.miniprojet.dao.DaoXMLFactory;
 
@@ -15,22 +16,18 @@ import fr.iut.miniprojet.dao.DaoXMLFactory;
 import fr.iut.miniprojet.dao.produits.*;
 
 public class Catalogue implements I_Catalogue{
-	
-	public static String DaoMethod = "oracle";
-	
+		
 	// Liste contenant le contenu du catalogue
 	private List<I_Produit> lesProduit;
-
-	private DAOProduit daoProduits;
-
 	private String nom;
 	
+	private DAOProduit daoProduits;
 	public Catalogue(String nom) {
 		this.nom = nom;
 		
 		this.lesProduit = new ArrayList<I_Produit>();
 		
-		switch (DaoMethod) {
+		switch (Config.daoMethod) {
 		case "oracle":
 			this.daoProduits = DaoOracleFactory.getInstance().createDaoProduit(this);
 			break;
@@ -41,11 +38,6 @@ public class Catalogue implements I_Catalogue{
 			this.daoProduits = DaoOracleFactory.getInstance().createDaoProduit(this);
 			break;
 		}
-		//TODO Récupération liaison avec bdd
-		/*//Création d'une nouvelle instance de dao en fonction de la méthode souhaitée (oracle ou xml)
-		this.daoProduits = DAOProduitBuilder.getInstance().createDAOProduit();
-*/		
-		
 		
 		List<I_Produit> liste = this.daoProduits.getProduits();
 		this.addProduits(liste);

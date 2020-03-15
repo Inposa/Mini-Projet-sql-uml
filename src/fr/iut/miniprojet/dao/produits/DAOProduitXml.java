@@ -7,20 +7,10 @@ import fr.iut.miniprojet.entities.Produit;
 
 public class DAOProduitXml implements DAOProduit {
 	
-	public static DAOProduitXml instance = null;
-
 	private ProduitDAO_XML xmlDAO;
-	
 
-	public static DAOProduitXml getInstance() {
-		if(DAOProduitXml.instance == null) {
-			DAOProduitXml.instance = new DAOProduitXml();
-		}
-		return DAOProduitXml.instance;
-	}
-	
-	private DAOProduitXml() {
-		this.xmlDAO = new ProduitDAO_XML();
+	public DAOProduitXml(String nomCatalogue) {
+		this.xmlDAO = new ProduitDAO_XML(nomCatalogue);
 	}
 
 	@Override

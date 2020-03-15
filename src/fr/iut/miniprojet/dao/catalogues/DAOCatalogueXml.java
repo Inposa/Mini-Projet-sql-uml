@@ -35,7 +35,7 @@ public class DAOCatalogueXml implements DAOCatalogue {
 
 	@Override
 	public int getNbProduits(I_Catalogue catalogue) {
-		return this.daoXML.lireTous().size();
+		return this.daoXML.getNbProduit(catalogue.getNom());
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class DAOCatalogueXml implements DAOCatalogue {
 
 	@Override
 	public I_Catalogue remplirCatalogue(I_Catalogue catalogue) {
-		// TODO Auto-generated method stub
+		//return daoXML.remplirCatalogue(catalogue);
 		return null;
 	}
 

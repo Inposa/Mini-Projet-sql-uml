@@ -13,7 +13,6 @@ public class MainController {
 	private ControllerAchatVente controllerAchatVente;
 	private ControllerCreationSupressionProduit controllerCreationSupressionProduit;
 	
-	
 	public MainController(Catalogue catalogue) {
 		this.catalogue = catalogue;
 			

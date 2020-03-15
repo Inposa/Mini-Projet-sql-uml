@@ -4,13 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import fr.iut.miniprojet.Observateur;
 import fr.iut.miniprojet.controlers.ControllerGestionCatalogues;
+import fr.iut.miniprojet.controlers.Observateur;
 
 public class FenetreAccueil extends JFrame implements ActionListener, Observateur {
 
 	//Définit la méthode de stockage à employer
-	private static String daoMethod = "oracle";
 	private ControllerGestionCatalogues controllerCatalogues;
 	
 	private JButton btAjouter, btSupprimer, btSelectionner;
@@ -20,7 +19,7 @@ public class FenetreAccueil extends JFrame implements ActionListener, Observateu
 	private TextArea taDetailCatalogues;
 
 	public FenetreAccueil() {
-		this.controllerCatalogues = new ControllerGestionCatalogues(daoMethod);
+		this.controllerCatalogues = new ControllerGestionCatalogues();
 		
 		setTitle("Catalogues");
 		setBounds(500, 500, 200, 125);
@@ -161,7 +160,6 @@ public class FenetreAccueil extends JFrame implements ActionListener, Observateu
 	//Appelé dès que l'on ajoute ou retire un catalogue de la liste pour pouvoir mettre à jour la liste
 	@Override
 	public void maj(String[] nomsCatalogues) {
-		System.out.println("Mise à jour !");
 		String[] tab = this.controllerCatalogues.getNomsCatalogues();
 		modifierListesCatalogues(tab);
 		

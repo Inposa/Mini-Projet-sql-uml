@@ -8,6 +8,7 @@ import org.jdom.*;
 import org.jdom.input.*;
 import org.jdom.output.*;
 
+import fr.iut.miniprojet.dao.produits.DAOProduitXml;
 import fr.iut.miniprojet.entities.Catalogue;
 import fr.iut.miniprojet.entities.I_Catalogue;
 import fr.iut.miniprojet.entities.I_Produit;
@@ -17,6 +18,8 @@ import fr.iut.miniprojet.entities.Produit;
 public class CatalogueDAO_XML {
 	private String uri = "./db/Catalogues.xml";
 	private Document doc;
+	
+	private DAOProduitXml daoProduit;
 
 	public CatalogueDAO_XML() {
 		SAXBuilder sdoc = new SAXBuilder();
@@ -62,9 +65,19 @@ public class CatalogueDAO_XML {
 		else
 			return null;
 	}
-
+	
+	public I_Catalogue remplirCatalogue(I_Catalogue catalogue) {
+		DAOProduitXml daoProduitXml = new DAOProduitXml(catalogue.getNom());
+		catalogue.addProduits(daoProduitXml.getProduits());
+		return catalogue;
+	}
+	
+	public int getNbProduit(String nom) {
+		DAOProduitXml daoProduitsxml = new DAOProduitXml(nom);
+		return daoProduitsxml.getProduits().size();
+	}
+	
 	public List<I_Catalogue> lireTous() {
-
 		List<I_Catalogue> l = new ArrayList<I_Catalogue>();
 		try {
 			Element root = doc.getRootElement();
@@ -103,4 +116,8 @@ public class CatalogueDAO_XML {
 		else
 			return null;
 	}
+	
+
+	
+	
 }

@@ -3,7 +3,7 @@ package fr.iut.miniprojet.controlers;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.iut.miniprojet.Observateur;
+import fr.iut.miniprojet.Config;
 import fr.iut.miniprojet.dao.DaoOracleFactory;
 import fr.iut.miniprojet.dao.DaoXMLFactory;
 import fr.iut.miniprojet.dao.catalogues.DAOCatalogue;
@@ -14,10 +14,10 @@ public class ControllerGestionCatalogues {
 	
 	private List<Observateur> observateurs;
 	
-	public ControllerGestionCatalogues(String daoMethod) {
+	public ControllerGestionCatalogues() {
 		this.observateurs = new ArrayList<Observateur>();
 		
-		switch(daoMethod) {
+		switch(Config.daoMethod) {
 		case "oracle":
 			this.daoCatalogue = DaoOracleFactory.getInstance().createDaoCatalogue();
 			break;
