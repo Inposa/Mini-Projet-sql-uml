@@ -36,10 +36,6 @@ public class DAOProduitOracle implements DAOProduit {
 			
 			CallableStatement statement = this.cn.prepareCall("{CALL insererNouveauProduit(?,?,?,?)}");
 			
-			/*
-			PreparedStatement statement = this.cn.prepareStatement("INSERT INTO Produits2(nomProduit, prixProduit, nbrStock, nomCatalogue) "
-					+ "VALUES(?,?,?,?)");
-			*/
 			statement.setString(1, nomProduit);
 			statement.setDouble(2, prixProduit);
 			statement.setInt(3, qteProduit);
@@ -63,10 +59,6 @@ public class DAOProduitOracle implements DAOProduit {
 		try {
 			CallableStatement statement = this.cn.prepareCall("{CALL deleteProduit(?,?)}");
 			
-			/*
-			PreparedStatement statement = this.cn.prepareStatement("DELETE FROM Produits2 WHERE nomProduit = ? "
-					+ "AND nomCatalogue = ?");
-			*/
 			statement.setString(1, nomProduit);
 			statement.setString(2, this.nomCatalogue);
 			
@@ -86,11 +78,7 @@ public class DAOProduitOracle implements DAOProduit {
 	@Override
 	public boolean maj(I_Produit produit) {
 		try {
-			CallableStatement statement = this.cn.prepareCall("{CALL updateProduit(?,?,?}");
-			/*
-			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits2 SET nbrStock = ? WHERE nomProduit = ? "
-					+ "AND nomCatalogue = ?");
-			*/
+			CallableStatement statement = this.cn.prepareCall("{CALL updateProduit(?,?,?)}");
 	
 			statement.setInt(1, produit.getQuantite());
 			statement.setString(2, produit.getNom());

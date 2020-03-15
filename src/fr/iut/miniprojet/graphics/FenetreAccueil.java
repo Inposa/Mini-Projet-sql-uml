@@ -5,11 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import fr.iut.miniprojet.Observateur;
-import fr.iut.miniprojet.ObservateurListeCatalogues;
 import fr.iut.miniprojet.controlers.ControllerGestionCatalogues;
 
 public class FenetreAccueil extends JFrame implements ActionListener, Observateur {
 
+	//Définit la méthode de stockage à employer
 	private static String daoMethod = "oracle";
 	private ControllerGestionCatalogues controllerCatalogues;
 	

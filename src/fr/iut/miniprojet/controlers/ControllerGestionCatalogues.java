@@ -34,7 +34,6 @@ public class ControllerGestionCatalogues {
 	 */
 	public String[] getNomsCatalogues() {
 		List<I_Catalogue> liste = this.daoCatalogue.getCatalogues();
-		
 		String[] tab = new String[liste.size()];
 		
 		for(int i = 0; i < liste.size(); i++) {
