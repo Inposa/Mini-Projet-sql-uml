@@ -64,17 +64,39 @@ public class ControllerGestionCatalogues {
 	public boolean creerNouveauCatalogue(String nom) {
 		boolean reponse = this.daoCatalogue.insertionCatalogue(nom);
 		this.notice();
+		return reponse;		
+	}
+	
+	public boolean supprimerCatalogue(String nom) {
+		boolean reponse = this.daoCatalogue.deleteCatalogue(nom);
+		this.notice();
 		return reponse;
+	}
+	
+	
+	public I_Catalogue selectionnerCatalogue(String nom) {
+		// Permet d'obtenir un catalogue possédant le nom souhaité
+		// Il est ensuite rempli avec son contenu lu dans la BDD puis renvoyé
+		I_Catalogue catalogue = this.daoCatalogue.lire(nom);
+		this.daoCatalogue.remplirCatalogue(catalogue);
 		
+		return catalogue;
 		
 	}
 	
 	
+	/**
+	 * Attacher un nouvel observateur au controller
+	 * @param observateur
+	 */
 	public void attach(Observateur observateur) {
 		this.observateurs.add(observateur);
 		observateur.maj(this.getNomsCatalogues());
 	}
 	
+	/**
+	 * Mettre à jour tous les observateurs attachés au controller
+	 */
 	public void notice() {
 		for(Observateur observateur : this.observateurs) {
 			observateur.maj(this.getNomsCatalogues());

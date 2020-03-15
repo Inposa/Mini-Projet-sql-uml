@@ -4,7 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import fr.iut.miniprojet.controlers.MainController;;
+import fr.iut.miniprojet.controlers.MainController;
+import fr.iut.miniprojet.entities.I_Catalogue;;
 
 public class FenetrePrincipale extends JFrame implements ActionListener,
 WindowListener {
@@ -21,8 +22,8 @@ WindowListener {
 
 	private MainController mainController;
 
-	public FenetrePrincipale(String nomCatalogue) {
-		this.mainController = new MainController(nomCatalogue);
+	public FenetrePrincipale(I_Catalogue Catalogue) {
+		this.mainController = new MainController((fr.iut.miniprojet.entities.Catalogue) Catalogue);
 
 		setTitle("Exercice Produits");
 		setBounds(500, 500, 320, 250);

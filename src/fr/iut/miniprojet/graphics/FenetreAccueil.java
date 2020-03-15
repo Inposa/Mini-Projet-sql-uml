@@ -108,18 +108,22 @@ public class FenetreAccueil extends JFrame implements ActionListener, Observateu
 			}
 		}
 		
+		//Suppression du catalogue sélectionné
 		if (e.getSource() == btSupprimer) {
 			String texteSupprime = (String)cmbSupprimer.getSelectedItem();
-			
-			if (texteSupprime != null)
+			if (texteSupprime != null) {
 				System.out.println("supprime catalogue "+texteSupprime);
+				this.controllerCatalogues.supprimerCatalogue(texteSupprime);
+			}
 		}
 		
+		//Démarrer l'application avec un catalogue en particulier
 		if (e.getSource() == btSelectionner) {
 			String texteSelection = (String)cmbSupprimer.getSelectedItem();
 			
 			if (texteSelection != null) {
 				System.out.println("selectionne catalogue "+texteSelection);
+				new FenetrePrincipale(this.controllerCatalogues.selectionnerCatalogue(texteSelection));
 				this.dispose();
 			}
 		}	

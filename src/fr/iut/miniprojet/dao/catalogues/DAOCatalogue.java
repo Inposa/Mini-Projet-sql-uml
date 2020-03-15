@@ -2,6 +2,7 @@ package fr.iut.miniprojet.dao.catalogues;
 
 import java.util.List;
 
+import fr.iut.miniprojet.entities.Catalogue;
 import fr.iut.miniprojet.entities.I_Catalogue;
 
 public interface DAOCatalogue {

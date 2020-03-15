@@ -85,8 +85,12 @@ public class DAOCatalogueOracle implements DAOCatalogue {
 
 			pst.setString(1, nomCatalogue);
 			ResultSet res = pst.executeQuery();
-
-			return new Catalogue(res.getString(1));
+			res.next();
+			
+			Catalogue catalogue = new Catalogue(res.getString(1));
+			System.out.println("Sélection controller : "+catalogue.getNom());
+			
+			return catalogue;
 
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -107,7 +111,7 @@ public class DAOCatalogueOracle implements DAOCatalogue {
 			// renvoiera.
 			while(res.next()) {
 				String nom = res.getString(1);
-				System.out.println(nom);
+				//System.out.println(nom);
 
 				liste.add(new Catalogue(nom));
 			}
@@ -132,18 +136,23 @@ public class DAOCatalogueOracle implements DAOCatalogue {
 	@Override
 	public I_Catalogue remplirCatalogue(I_Catalogue catalogue) {
 		try {
-			PreparedStatement pst = this.cn.prepareStatement("SELECT nomProduit, prixProduit, nbrStock"
-					+ " FROM Produits2 WHERE nomCatalogue = ? ");
-
+			PreparedStatement pst = this.cn.prepareStatement("SELECT nomProduit, prixProduit, nbrStock FROM Produits2 WHERE nomCatalogue = ? ");
+			
+			System.out.println(catalogue.getNom());
 			pst.setString(1, catalogue.getNom());
 			ResultSet res = pst.executeQuery();
 
 			List<I_Produit> liste = new ArrayList<I_Produit>();
-			while(res.next()) {
-				liste.add(new Produit(res.getString(1), res.getFloat(2), res.getInt(3)));
-			}
 
-			catalogue.addProduits(liste);
+			if(res != null) {
+				while(res.next()) {
+					I_Produit produit = new Produit(res.getString(1), res.getFloat(2), res.getInt(3));
+					System.out.println(produit.toString());
+					liste.add(produit);
+				}
+
+				catalogue.addProduits(liste);
+			}
 			return catalogue;
 
 		} catch (SQLException e) {

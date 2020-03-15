@@ -3,6 +3,7 @@ package fr.iut.miniprojet.dao;
 import fr.iut.miniprojet.dao.catalogues.DAOCatalogue;
 import fr.iut.miniprojet.dao.produits.DAOProduit;
 import fr.iut.miniprojet.dao.produits.DAOProduitXml;
+import fr.iut.miniprojet.entities.I_Catalogue;
 
 public class DaoXMLFactory implements AbstractDaoFactory {
 	private static DaoXMLFactory instance = null;
@@ -19,7 +20,8 @@ public class DaoXMLFactory implements AbstractDaoFactory {
 	}
 	
 	@Override
-	public DAOProduit createDaoProduit() {
+	public DAOProduit createDaoProduit(I_Catalogue catalogue) {
+		//TODO
 		return DAOProduitXml.getInstance();
 	}
 

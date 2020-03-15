@@ -30,16 +30,15 @@ public class Catalogue implements I_Catalogue{
 		
 		this.lesProduit = new ArrayList<I_Produit>();
 		
-		
 		switch (DaoMethod) {
 		case "oracle":
-			this.daoProduits = DaoOracleFactory.getInstance().createDaoProduit();
+			this.daoProduits = DaoOracleFactory.getInstance().createDaoProduit(this);
 			break;
 		case "xml":
-			this.daoProduits = DaoXMLFactory.getInstance().createDaoProduit();
+			this.daoProduits = DaoXMLFactory.getInstance().createDaoProduit(this);
 		
 		default:
-			this.daoProduits = DaoOracleFactory.getInstance().createDaoProduit();
+			this.daoProduits = DaoOracleFactory.getInstance().createDaoProduit(this);
 			break;
 		}
 		//TODO Récupération liaison avec bdd

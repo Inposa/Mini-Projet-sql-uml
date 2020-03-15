@@ -2,10 +2,10 @@ package fr.iut.miniprojet.controlers;
 
 //import fr.iut.miniprojet.dao.DAO;
 import fr.iut.miniprojet.entities.Catalogue;
+import fr.iut.miniprojet.entities.I_Catalogue;
 
 public class MainController {
 	// Catalogue qui sera le même pour les trois autres controlers
-	//TODO Gérer différents catalogues
 	private Catalogue catalogue;
 	
 	// Controllers :
@@ -14,7 +14,8 @@ public class MainController {
 	private ControllerCreationSupressionProduit controllerCreationSupressionProduit;
 	
 	
-	public MainController(String nomCatalogue) {
+	public MainController(Catalogue catalogue) {
+		this.catalogue = catalogue;
 			
 		this.controllerAchatVente = new ControllerAchatVente(catalogue);
 		this.controllerStock = new ControllerStock(catalogue);
@@ -22,7 +23,7 @@ public class MainController {
 		
 	}
 	
-	public Catalogue getCatalogue() {
+	public I_Catalogue getCatalogue() {
 		return this.catalogue;
 	}
 

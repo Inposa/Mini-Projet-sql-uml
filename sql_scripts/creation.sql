@@ -58,6 +58,27 @@ CREATE OR REPLACE PROCEDURE deleteProduit(
 		WHERE nomProduit = p_nomProduit AND nomCatalogue = p_nomCatalogue;
 	END;
 
+-- Mettre à jour les stocks d'un produit
+CREATE OR REPLACE PROCEDURE updateProduit(
+				p_nbrStock IN Produits2.nbrStock%TYPE,
+				p_nomProduit IN Produits2.nomProduit%TYPE, 
+				p_nomCatalogue IN Produits2.nomCatalogue%TYPE) IS
+	BEGIN
+		UPDATE Produits2 
+		SET nbrStock = p_nbrStock
+		WHERE nomProduit = p_nomProduit 
+				AND nomCatalogue = p_nomCatalogue;
+	END;
+
+-- Lire un produit d'un catalogue
+CREATE OR REPLACE PROCEDURE lireProduit(
+				p_nomProduit IN Produits2.nomProduit%TYPE, 
+				p_nomCatalogue IN Produits2.nomCatalogue%TYPE) IS
+	BEGIN
+		SELECT nomProduit, prixProduit, nbrStock
+		FROM Produits2
+		WHERE nomProduit = p_nomProduit AND nomCatalogue = p_nomCatalogue;
+	END;	
 
 -- Vérifier si un nom de produit existe déjà dans le catalogue que l'on souhaite modifier
 CREATE OR REPLACE TRIGGER verifDoubleNomProduitCatalogue

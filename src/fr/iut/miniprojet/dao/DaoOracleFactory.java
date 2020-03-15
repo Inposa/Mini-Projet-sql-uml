@@ -6,6 +6,7 @@ import fr.iut.miniprojet.dao.catalogues.DAOCatalogue;
 import fr.iut.miniprojet.dao.catalogues.DAOCatalogueOracle;
 import fr.iut.miniprojet.dao.produits.DAOProduit;
 import fr.iut.miniprojet.dao.produits.DAOProduitOracle;
+import fr.iut.miniprojet.entities.I_Catalogue;
 
 public class DaoOracleFactory implements AbstractDaoFactory {
 	
@@ -34,8 +35,8 @@ public class DaoOracleFactory implements AbstractDaoFactory {
 	
 
 	@Override
-	public DAOProduit createDaoProduit() {
-		return new DAOProduitOracle(this.cn);
+	public DAOProduit createDaoProduit(I_Catalogue catalogue) {
+		return new DAOProduitOracle(this.cn, catalogue);
 	}
 
 	@Override
