@@ -4,8 +4,15 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class FenetreAccueil extends JFrame implements ActionListener {
+import fr.iut.miniprojet.Observateur;
+import fr.iut.miniprojet.ObservateurListeCatalogues;
+import fr.iut.miniprojet.controlers.ControllerGestionCatalogues;
 
+public class FenetreAccueil extends JFrame implements ActionListener, Observateur {
+
+	private static String daoMethod = "oracle";
+	private ControllerGestionCatalogues controllerCatalogues;
+	
 	private JButton btAjouter, btSupprimer, btSelectionner;
 	private JTextField txtAjouter;
 	private JLabel lbNbCatalogues;
@@ -13,6 +20,8 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 	private TextArea taDetailCatalogues;
 
 	public FenetreAccueil() {
+		this.controllerCatalogues = new ControllerGestionCatalogues(daoMethod);
+		
 		setTitle("Catalogues");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();
@@ -76,35 +85,40 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 		btSupprimer.addActionListener(this);
 		btSelectionner.addActionListener(this);
 		
-		String[] tab  = {"Formacia" , "Le Redoutable", "Noitaicossa"}; 
+		//String[] tab  = {"Formacia" , "Le Redoutable", "Noitaicossa"}; 
+		String[] tab = this.controllerCatalogues.getNomsCatalogues();
 		modifierListesCatalogues(tab);
-		String[] tab2 = {"Formacia : 6 produits" , "Le Redoutable : 4 produits" , "Noitaicossa : 0 produits" };
+		
+		//String[] tab2 = {"Formacia : 6 produits" , "Le Redoutable : 4 produits" , "Noitaicossa : 0 produits" };
+		String[] tab2 = this.controllerCatalogues.getDetailCatalogues();
 		modifierDetailCatalogues(tab2);
-		modifierNbCatalogues(3);
+		modifierNbCatalogues(tab.length);
 		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btAjouter)
-		{
+		//Création d'un nouveau Catalogue
+		if (e.getSource() == btAjouter) {
 			String texteAjout = txtAjouter.getText();
-			if (!texteAjout.equals(""))
-			{
-				System.out.println("ajouter le catalogue "+texteAjout);
+			
+			if (!texteAjout.equals("")) {
+				System.out.println("Ajouter le catalogue "+texteAjout);
+				this.controllerCatalogues.creerNouveauCatalogue(texteAjout);
 				txtAjouter.setText(null);
 			}
 		}
-		if (e.getSource() == btSupprimer)
-		{
+		
+		if (e.getSource() == btSupprimer) {
 			String texteSupprime = (String)cmbSupprimer.getSelectedItem();
+			
 			if (texteSupprime != null)
 				System.out.println("supprime catalogue "+texteSupprime);
 		}
-		if (e.getSource() == btSelectionner)
-		{
+		
+		if (e.getSource() == btSelectionner) {
 			String texteSelection = (String)cmbSupprimer.getSelectedItem();
-			if (texteSelection != null) 
-			{
+			
+			if (texteSelection != null) {
 				System.out.println("selectionne catalogue "+texteSelection);
 				this.dispose();
 			}
@@ -114,16 +128,15 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 	private void modifierListesCatalogues(String[] nomsCatalogues) {
 		cmbSupprimer.removeAllItems();
 		cmbSelectionner.removeAllItems();
-		if (nomsCatalogues != null)
-			for (int i=0 ; i<nomsCatalogues.length; i++)
-			{
+		if (nomsCatalogues != null) {
+			for (int i=0 ; i<nomsCatalogues.length; i++) {
 				cmbSupprimer.addItem(nomsCatalogues[i]);
 				cmbSelectionner.addItem(nomsCatalogues[i]);
 			}
+		}
 	}
 	
-	private void modifierNbCatalogues(int nb)
-	{
+	private void modifierNbCatalogues(int nb) {
 		lbNbCatalogues.setText(nb + " catalogues");
 	}
 	
@@ -136,6 +149,21 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 	}
 	
 	public static void main(String[] args) {
-		new FenetreAccueil();
+		FenetreAccueil fenetre_accueil = new FenetreAccueil();
+		fenetre_accueil.controllerCatalogues.attach(fenetre_accueil);
+	}
+
+	
+	//Appelé dès que l'on ajoute ou retire un catalogue de la liste pour pouvoir mettre à jour la liste
+	@Override
+	public void maj(String[] nomsCatalogues) {
+		System.out.println("Mise à jour !");
+		String[] tab = this.controllerCatalogues.getNomsCatalogues();
+		modifierListesCatalogues(tab);
+		
+		//String[] tab2 = {"Formacia : 6 produits" , "Le Redoutable : 4 produits" , "Noitaicossa : 0 produits" };
+		String[] tab2 = this.controllerCatalogues.getDetailCatalogues();
+		modifierDetailCatalogues(tab2);
+		modifierNbCatalogues(tab.length);
 	}
 }

@@ -107,22 +107,6 @@ public class DAOProduitOracle implements DAOProduit {
 		}
 	}
 	
-/*	@Override
-	public boolean maj(String nomProduit, int quantite) {
-		try {
-			PreparedStatement statement = this.cn.prepareStatement("UPDATE Produits SET nbrStock = ? WHERE nomProduit = ?");
-
-			statement.setInt(1, quantite);
-			statement.setString(2, nomProduit);
-			statement.executeUpdate();
-			return true;
-			
-		}catch (SQLException e) {
-			System.err.println(e.getMessage());
-			return false;
-		}		
-	}*/
-	
 	/**
 	 * Retourne un produit à partir de son nom
 	 */

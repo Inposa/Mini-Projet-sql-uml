@@ -14,7 +14,7 @@ public class MainController {
 	private ControllerCreationSupressionProduit controllerCreationSupressionProduit;
 	
 	
-	public MainController() {
+	public MainController(String nomCatalogue) {
 			
 		this.controllerAchatVente = new ControllerAchatVente(catalogue);
 		this.controllerStock = new ControllerStock(catalogue);

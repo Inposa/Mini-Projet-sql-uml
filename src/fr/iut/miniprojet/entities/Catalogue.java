@@ -252,4 +252,14 @@ public class Catalogue implements I_Catalogue{
 				+format.format(this.getMontantTotalTTC()).replace('.', ',')+" €";
 		return retourString;
 	}
+
+	@Override
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	@Override
+	public String getNom() {
+		return this.nom;
+	}
 }

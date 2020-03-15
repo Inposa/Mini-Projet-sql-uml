@@ -3,6 +3,7 @@ package fr.iut.miniprojet.dao;
 import java.sql.*;
 
 import fr.iut.miniprojet.dao.catalogues.DAOCatalogue;
+import fr.iut.miniprojet.dao.catalogues.DAOCatalogueOracle;
 import fr.iut.miniprojet.dao.produits.DAOProduit;
 import fr.iut.miniprojet.dao.produits.DAOProduitOracle;
 
@@ -39,8 +40,7 @@ public class DaoOracleFactory implements AbstractDaoFactory {
 
 	@Override
 	public DAOCatalogue createDaoCatalogue() {
-		// TODO return DAOCatalogueOracle.getInstance();
-		return null;
+		return new DAOCatalogueOracle(this.cn);
 	}
 
 }

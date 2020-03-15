@@ -21,8 +21,8 @@ WindowListener {
 
 	private MainController mainController;
 
-	public FenetrePrincipale() {
-		this.mainController = new MainController();
+	public FenetrePrincipale(String nomCatalogue) {
+		this.mainController = new MainController(nomCatalogue);
 
 		setTitle("Exercice Produits");
 		setBounds(500, 500, 320, 250);
@@ -134,8 +134,9 @@ WindowListener {
 	public void windowOpened(WindowEvent arg0) {}
 
 
+	/*
 	public static void main(String[] args) {
 		new FenetrePrincipale();
-	}
+	}*/
 
 }
